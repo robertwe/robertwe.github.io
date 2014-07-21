@@ -8,6 +8,7 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
+excerpt_separator: "|"
 markdown: kramdown
 title : Software Craftsman
 tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Python, Django, Web apps security, Linux
@@ -74,6 +75,7 @@ JB :
   tags_path : /tags.html
   atom_path : /atom.xml
   rss_path : /rss.xml
+  about_path : /about.html
 
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
@@ -115,7 +117,7 @@ JB :
   # Set 'provider' to false to turn sharing off globally.
   #
   sharing :
-    provider : true
+    provider : github
     
   # Settings for all other include helpers can be defined by creating 
   # a hash with key named for the given helper. ex:

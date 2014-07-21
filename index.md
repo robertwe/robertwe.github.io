@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Hello World!
-tagline: Supporting tagline
+tagline: 
 ---
 {% include JB/setup %}
 
@@ -17,9 +17,9 @@ The theme should reference these variables whenever needed.
 
 This blog contains sample posts which help stage pages and blog data.
 When you don't need the samples anymore just delete the `_posts/core-samples` folder.
-
+{% highlight bash linenos %}
     $ rm -rf _posts/core-samples
-
+{% endhighlight %}
 Here's a sample "posts list".
 
 <ul class="posts">
@@ -32,5 +32,28 @@ Here's a sample "posts list".
 
 This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
 We need to clean up the themes, make theme usage guides with theme-specific markup examples.
+{% highlight ruby linenos %}
+def show
+  @widget = Widget(params[:id])
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
+{% endhighlight %}
 
 
+{% for post in site.posts limit: 10 %}
+  <hr />
+  <div><a href="{{ post.url }}"><h3>{{ post.title }}&nbsp;&raquo;</h3></a></div>
+  <div>
+      <span class="small text-muted">{{ post.date | date: "%B %d, %Y" }}</span></div>
+  <div>
+    <p>
+      {{ post.excerpt }} <a href="{{ post.url }}" class="lead">Read&nbsp;entire&nbsp;post...</a>
+    </p>
+  </div>
+{% endfor %}
+
+
+`Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`

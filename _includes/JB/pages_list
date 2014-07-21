@@ -17,7 +17,7 @@ Usage:
   	If you want to group posts, it's easier/better to tag them, then pass the tagged posts array.
   	i.e. site.tags.cool_tag (this returns an array of posts tagged: cool_tag)
   	
-  This helper can be seen in use at: ../_layouts/default.html
+ This helper can be seen in use at: ../_layouts/default.html
 -->{% endcomment %}
 
 {% if site.JB.pages_list.provider == "custom" %}
