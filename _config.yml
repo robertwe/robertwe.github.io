@@ -8,8 +8,9 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Jekyll Bootstrap
-tagline: Site Tagline
+markdown: kramdown
+title : Software Craftsman
+tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Python, Django, Web apps security, Linux
 author :
   name : Robert Weclawski
   email : robertwe@n-wms.com
