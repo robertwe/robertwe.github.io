@@ -9,7 +9,8 @@ highlighter: pygments
 # so be sure to set them if your theme uses them.
 #
 excerpt_separator: "|"
-markdown: kramdown
+#markdown: kramdown
+markdown: redcarpet
 title : Software Craftsman
 tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Python, Django, Web apps security, Linux
 author :
