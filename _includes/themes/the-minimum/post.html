@@ -14,20 +14,24 @@
                                     <span class="year">{{ page.date | date: '%Y' }}</span>
                                 </date>
                             </p>
-                            <ul class="list-category list-linear">
-                                {% if page.categories.size > 0 %}
+                            {% if page.categories.size > 0 %}
+                                <ul class="list-category list-linear">
                                     <li class="list-head">category: </li>
-                                    {% assign categories_list = page.categories %}
-                                    {% include JB/categories_list %}
-                                {% endif %}
-                            </ul>
-                            <ul class="list-tag list-linear">
-                                {% if page.tags.size > 0 %}
-                                    <li class="list-head">tags: </li>
-                                    {% assign tags_list = page.tags %}
-                                    {% include JB/tags_list %}
-                                {% endif %}
-                            </ul>
+                                        {% assign categories_list = page.categories %}
+                                        {% include JB/categories_list %}
+                                </ul>
+                            {% endif %}
+                            {% if page.tags.size > 0 %}
+                                <ul class="list-tag list-linear">
+                                        <li class="list-head">tags: </li>
+                                        {% assign tags_list = page.tags %}
+                                        {% include JB/tags_list %}
+                                </ul>
+                            {% endif %}
+                            {% if page.tags.size == 0 or page.categories.size == 0 %}
+                                <ul class="list-tag list-linear">
+                                </ul>
+                            {% endif %}
                         </div><!-- meta -->
 					</div><!-- unit-inner -->
 				</div><!-- unit-head -->
