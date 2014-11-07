@@ -15,14 +15,18 @@
                                 </date>
                             </p>
                             <ul class="list-category list-linear">
-                                <li class="list-head">category: </li>
-                                {% assign categories_list = page.categories %}
-                                {% include JB/categories_list %}
+                                {% if page.categories.size > 0 %}
+                                    <li class="list-head">category: </li>
+                                    {% assign categories_list = page.categories %}
+                                    {% include JB/categories_list %}
+                                {% endif %}
                             </ul>
                             <ul class="list-tag list-linear">
-                                <li class="list-head">tags: </li>
-                                {% assign tags_list = page.tags %}
-                                {% include JB/tags_list %}
+                                {% if page.tags.size > 0 %}
+                                    <li class="list-head">tags: </li>
+                                    {% assign tags_list = page.tags %}
+                                    {% include JB/tags_list %}
+                                {% endif %}
                             </ul>
                         </div><!-- meta -->
 					</div><!-- unit-inner -->
