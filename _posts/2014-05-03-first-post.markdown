@@ -1,7 +1,8 @@
 ---
 layout: post
 title: first post
-date: 2014-05-03 22:40:03.000000000 +02:00
+date: 2014-05-03 22:40:03.00 +02:00
+tag: ["First Post"]
 ---
 #### Let's write it down.
 To be honest I dont remember when I actually started thinking about writing down most the solutions I found over the internet or implemented myself. 

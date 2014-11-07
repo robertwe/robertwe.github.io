@@ -157,7 +157,6 @@ No styleguide reference.
 .list-linear {
   letter-spacing: -0.31em;
   *letter-spacing: normal;
-  word-spacing: -0.43em;
   list-style: none;
   padding-left: 0;
 }
@@ -828,6 +827,15 @@ pre {
   .unit-article .unit-head-inner,
   .unit-article .entry-content,
   .unit-article .misc-content {
+    width: 48.75em;
+  }
+  .unit-article .unit-head-inner .meta,
+  .unit-article .entry-content .meta,
+  .unit-article .misc-content .meta {
+    margin-top: 0px;
+    margin-bottom: -20px;
+    text-align: left;
+    float: left;
     width: 48.75em;
   }
   .unit-article .unit-foot-inner {

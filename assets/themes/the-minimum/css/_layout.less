@@ -311,7 +311,16 @@
 	} // the-header
 	.unit-article {
 
-		.unit-head-inner, .entry-content, .misc-content { width: @9cols; }
+		.unit-head-inner, .entry-content, .misc-content {
+			width: @9cols;
+			.meta {
+				margin-top:0px;
+				margin-bottom:-20px;
+				text-align:left;
+				float:left;
+				width: @9cols;
+			}
+		}
 		.unit-foot-inner { width: @16cols; }
 
 		.unit-foot {
