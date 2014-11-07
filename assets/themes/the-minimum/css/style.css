@@ -743,9 +743,9 @@ pre {
   }
   .unit-article .unit-head-inner .meta {
     margin-bottom: 0;
-    text-align: right;
+    text-align: left;
     width: 31.875em;
-    float: right;
+    float: left;
   }
   .layout-page .unit-body .unit-body-inner {
     width: 43.125em;
@@ -755,9 +755,9 @@ pre {
   }
   .layout-page .unit-body .article-list .meta {
     margin-bottom: 0;
-    text-align: right;
+    text-align: left;
     width: 20.625em;
-    float: right;
+    float: left;
   }
   .the-footer .unit-foot {
     width: 43.125em;
