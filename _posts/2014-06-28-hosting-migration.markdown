@@ -11,7 +11,7 @@ which is also rather expensive.
 So at the end I sit down and calculated how much resources do I need and for how many resources I actually pay. 
 At the begining I tought that maybe the best solution would be to move everything to dedicated machine at [OVH](ovh.de) or 
 maybe [Hetzner](hetzner.de) but in both cases this is a cost ~50-70€ per month min. Quite much I think especially when my 
-sites do not have significant traffic.
+sites do not have significant traffic. &nbsp;
 I was definitely searching for something like **digitalocean.com** (DO). 
 
 #### DigitalOcean very reasonable price and offers a bunch of features I was looking for but:

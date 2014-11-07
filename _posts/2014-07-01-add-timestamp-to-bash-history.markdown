@@ -4,7 +4,9 @@ title: Add timestamp to Bash history
 date: 2014-07-01 08:30:46.000000000 +02:00
 tags: [bash,]
 ---
-Somethimes there is a strong need to add timestamp to bash history. I dont wanna describe reasons why I/we want to do it. Anyway I think such thing can be quite usefulk especially when on account is used by many users (in some cases it does not depned on us). This is how we can achieve this: 
+Somethimes there is a strong need to add timestamp to bash history.
+In other case this is just a nice feature which can make our work a little bit easier especially when on account is 
+used by many users (in some cases it does not depned on us). &nbsp; This is how we can achieve this: 
 {% highlight bash %}
 echo 'export HISTTIMEFORMAT="%d.%m.%y %T"' >> ~/.profile
 {% endhighlight %}    
