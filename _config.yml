@@ -8,11 +8,11 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-excerpt_separator: "|"
+excerpt_separator: "&nbsp;"
 #markdown: kramdown
 markdown: redcarpet
 title : Software Craftsman
-tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Python, Django, Web apps security, Linux
+tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Java, Python, Django, Web apps security, Linux
 author :
   name : Robert
   email : robertwe@n-wms.com
