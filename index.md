@@ -11,19 +11,6 @@ tagline:
   {% endfor %}
 </ul>
 
-## To-Do
-
-{% highlight ruby linenos %}
-def show
-  @widget = Widget(params[:id])
-  respond_to do |format|
-    format.html # show.html.erb
-    format.json { render json: @widget }
-  end
-end
-{% endhighlight %}
-
-
 {% for post in site.posts limit: 10 %}
   <hr />
   <div><a href="{{ post.url }}"><h2>{{ post.title }}&nbsp;&raquo;</h2></a></div>

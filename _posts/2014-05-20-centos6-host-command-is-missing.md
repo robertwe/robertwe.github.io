@@ -5,7 +5,7 @@ date: 2014-05-20 20:39:37.00 +02:00
 category: [CentOS]
 ---
 Recently I configured new machine with CentOS6.5 on the board and it looks like the $*host* command was missing.
-Here is a quick solution for that
+Here is a quick solution for that &nbsp;
 yum install bind-utils
 {% highlight text %}
 [robert@swordfish ~] yum install bind-utils
