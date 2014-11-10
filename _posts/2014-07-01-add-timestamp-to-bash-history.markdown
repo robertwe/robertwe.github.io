@@ -6,7 +6,7 @@ tags: [bash,]
 ---
 Sometimes there is a need to add timestamp to bash history.
 At my work I found it quite useful especially when some other developers 
-got access to the same box or when you simple want to have an idea when command from history was executed.
+got access to the same box or when you simple want to have an idea when command from history was executed. &nbsp;
 This is how we can achieve this: 
 {% highlight bash %}
 echo 'export HISTTIMEFORMAT="%d.%m.%y %T"' >> ~/.profile
