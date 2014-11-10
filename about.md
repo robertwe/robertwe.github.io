@@ -9,7 +9,9 @@ permalink: /about.html
 
 Hey, my name is Robert and Im a husband, father of three and software developer. 
 I create amazing websites and web applications for clients from all around the World; 
-At at my work I use varous technology mainly _PHP_ (Symfony2) and _Python_ (Twisted, Django) and _Java_ (mainly Spring4).
+At my work I follow the path of Software Craftsman (at last I do my best). Who is that you can ask ? 
+In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
+At at my work I use varous technology mainly _PHP_ (Symfony2), _Python_ (Twisted, Django) and _Java_ (mainly Spring4).
 Currently Im discovering _Ruby_ and _Ruby on Rails_ (v4) and must say it's **amazing**.
 
 <iframe src="http://githubbadge.appspot.com/badge/robertwe?s=1" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameborder="0"></iframe>
