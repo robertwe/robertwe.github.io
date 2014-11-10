@@ -19,7 +19,7 @@ _Here is a list of requirements:_
    -  system which allows me to focus on my problems, needs not on the tools,
    -  probably some _Ruby_ based solution (since this is the language now Im trying to master) with the [Markdown](http://daringfireball.net/projects/markdown/) 
       support (rather nice to have then real requirement),
-   -  possibility to host it outside my my private infrastructure (Linod, OVH) (in other workds something really cheap)
+   -  possibility to host it outside my private 'infrastructure' (Linod, OVH) (in other words something cheap)
 
 After a quick check (okay maybe a little bit longer than I expected) I decided to give (Jekyll)[http://jekyllrb.com/] a try.
 It's deadly simple, got Markdown support and can be hosted very easily on GitHub (without any charge).
