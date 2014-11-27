@@ -27,7 +27,7 @@ We can do it via `HISTCONTROL` variable. From Bash man page:
 
 In my case I always use `export HISTCONTROL=ignoreboth:erasedups` and add it to `.bashrc` if necessary.
 After that whenever we want to exclude specific command from storing it in the bash history we call it like 
-this ` mysql -u xxxx -pxxxxx`. Remember about space in front of command. 
+this `<space>mysql -u xxxx -pxxxxx`. Remember about space in front of command. 
 
 From what I see on Ubuntu 14.04 `HISTCONTROL` is set to value `ignoreboth` by default.
 
