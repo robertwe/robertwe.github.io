@@ -22,3 +22,9 @@ Currently Im discovering _Ruby_ and _Ruby on Rails_ (v4) and must say it's **ama
         <img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_viewmy_160x33.png" alt="Robert Weclawski's profile on LinkedIn" title="">
     </a>
 </p>
+
+[My Public PGP Key](/files/robert.weclawski@mykolab.com (0x47743A17) pub.asc.txt)    
+`Email: robert.weclawski@mykolab.com`     
+`KeyID: 0x47743A17`    
+`Fingerprint: E967 8AE5 7D98 965F A0DE 66CC 9469 2712 4774 3A17`    
+
