@@ -11,7 +11,7 @@ tagline:
   {% endfor %}
 </ul>
 
-{% for post in site.posts limit: 10 %}
+{% for post in site.posts limit: 6 %}
   <hr />
   <div><a href="{{ post.url }}"><h2>{{ post.title }}&nbsp;&raquo;</h2></a></div>
   <div>
