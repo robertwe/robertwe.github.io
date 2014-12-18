@@ -9,7 +9,7 @@ tags: [Ghost, Jekyll]
 After some time I finally decided to drop Ghost and migrate to some other tool/system. &nbsp;    
 _Why I did not stick with Ghost:_
 
-   -  expecially when I would like to put some `code` in the post Ghost formating makes me cry - simple does not work
+   -  when I would like to put some `code` in the post Ghost formating makes me cry - simple does not work (does not mean I did not try)
    -  I got few cases when post which was looking like I wanted in admin panel after putting post online was def. not what I expected,
    -  general problems with text formatting.
 
