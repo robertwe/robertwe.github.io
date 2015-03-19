@@ -30,7 +30,7 @@ Don't use kill -9. Don't bring out the combine harvester just to tidy up the flo
 
 In a short:
 
-  *  _5_ is _SIGTERM_ (terminate), 
+  *  _15_ is _SIGTERM_ (terminate), 
   *  _2_ is _SIGINT_ (interrupt, ctrl-c), 
   *  _1_ is _SIGHUP_ (terminal hangup, often overloaded to keep a process running but reload the config)
 
