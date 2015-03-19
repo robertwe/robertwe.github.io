@@ -9,7 +9,7 @@ I recenty found this advice given by _Randal Schwartz_.
 I think most of programmers got some idea who he is.
 Anyway if you have not had to touch Perl here is the link to [wiki page](https://en.wikipedia.org/wiki/Randal_L._Schwartz).
 
-Here is the advice from Randla:
+Here is the advice from Randal:
 &nbsp;
 
 ```
