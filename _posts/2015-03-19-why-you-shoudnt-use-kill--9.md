@@ -36,7 +36,6 @@ In a short:
 
 
 For those who would like to have full overview to all availabe signals here is a snippet from `signal.h`:
-From signal.h:
 {% highlight c %}
 #define SIGHUP           1
 #define SIGINT           2
