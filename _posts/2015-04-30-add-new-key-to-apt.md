@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Add new key to APT <br/>aka tell APT to trust some key
+title: Add new key to APT AKA tell APT to trust given key
 date: 2015-04-30 08:00:03.00 +02:00
 tag: ["Linux"]
 ---
