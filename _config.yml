@@ -12,7 +12,7 @@ excerpt_separator: "&nbsp;"
 #markdown: kramdown
 markdown: redcarpet
 title : Robert's notes
-tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Java, Python, Django, Web apps security, Linux
+tagline: Web applications, PHP, Symfony2, Ruby, Ruby On Rails, Java, Python, Web apps security, Linux
 author :
   name : Robert
   email : Robert Weclawski@mykolab.com
