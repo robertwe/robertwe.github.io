@@ -4,7 +4,6 @@ title: 'How to pass variable to Jinja template in Salt'
 date: 2015-11-03 22:00:00.00 +02:00
 tag: Salt
 ---
-##How to pass variable to Jinja template in Salt
 Yesterday I faced quite interesting ideas.
 In my SLS definition I was iterating over some hash of hashes and wanted pass to Jinja template 
 hash which was present in current iteration. {% raw %}&nbsp;{% endraw %}
