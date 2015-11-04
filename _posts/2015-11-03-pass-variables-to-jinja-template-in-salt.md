@@ -48,7 +48,7 @@ Here is the final version of my sls snippet:
 
 {% endraw %}
 {% endhighlight %}
-
+Of course you can pass as many variables as you want via the context.
 
 --robert
 
