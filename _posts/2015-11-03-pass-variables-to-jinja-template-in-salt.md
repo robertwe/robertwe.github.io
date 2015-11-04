@@ -13,7 +13,7 @@ To make it more clear let me how you this code:
 {% highlight yaml %}
 {% raw %}
 {% for vhost in pillar['vhosts'] %}
-/etc/httpd/conf.d/\{\{ vhost.name \}\}.conf:
+/etc/httpd/conf.d/{{ vhost.name }}.conf:
   file.managed:
     - template: jinja
     - source: salt://httpd/files/vhost/vhost_template.conf.jinja
