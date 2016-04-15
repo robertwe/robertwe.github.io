@@ -4,10 +4,10 @@ title: 'How to pass variable to Jinja template in Salt'
 date: 2015-11-03 22:00:00.00 +02:00
 tag: Salt
 ---
-Yesterday I faced quite interesting ideas.
-In my SLS definition I was iterating over some hash of hashes and wanted pass to Jinja template 
-hash which was present in current iteration. {% raw %}&nbsp;{% endraw %}
-To make it more clear let me how you this code:
+Yesterday I faced quite interesting problem.
+In my SLS definition I was iterating over some hash of hashes and wanted to pass to Jinja template
+hash, which was present in current iteration. {% raw %}&nbsp;{% endraw %}
+To make it more clear let show you the problem in the code:
 
 {% highlight yaml %}
 {% raw %}
@@ -24,10 +24,10 @@ To make it more clear let me how you this code:
 {% endfor %}
 {% endraw %}
 {% endhighlight %}
-I simple wanted to use variable _vhost_ insite my template. 
+I simple wanted to use variable _vhost_ in my template.
 Variable _vhost_ is nothing more than just a hash with parameters for each vhost.
 We can solve this problem by using *context* in _salt_ definition.
-Here is the final version of my sls snippet:
+Here is the final version of my sls snippet (aka solution):
 
 {% highlight yaml %}
 {% raw %}
@@ -42,7 +42,7 @@ Here is the final version of my sls snippet:
     - require:
       - pkg: httpd
     - context: # set up context for template
-      vhost: {{ vhost }} # it makes vhost hash available inside Jinja template under the name vhost 
+      vhost: {{ vhost }} # it makes vhost hash available inside Jinja template under the name vhost
 {% endfor %}
 
 {% endraw %}
@@ -50,4 +50,3 @@ Here is the final version of my sls snippet:
 Of course you can pass as many variables as you want via the context.
 
 --robert
-
