@@ -40,9 +40,9 @@ Here is the final version of my sls snippet (aka solution):
     - mode:     644
     - require:
       - pkg: httpd
-    - context:           # set up context for template
+    - context:             # set up context for template
         vhost: {{ vhost }} # it makes vhost hash available inside
-                         # Jinja template under the name vhost
+                           # Jinja template under the name vhost
 {% endfor %}
 {% endraw %}
 ```
