@@ -7,9 +7,9 @@ permalink: /about.html
 ---
 {% include JB/setup %}
 
-Hey, my name is Robert and Im a husband, father of three and software developer. 
-I create amazing websites and web applications for clients from all around the World; 
-At my work I follow the path of Software Craftsman (at last I do my best). Who is that you can ask ? 
+Hey, my name is Robert and Im a husband, father of three and software developer.
+I create amazing websites and web applications for clients from all around the World;
+At my work I follow the path of Software Craftsman (at least I do my best). Who is that you can ask ? 
 In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
 At at my work I use varous technology mainly _PHP_ (Symfony2), _Python_ (Twisted, Django) and _Java_ (mainly Spring4).
 Currently Im discovering _Ruby_ and _Ruby on Rails_ (v4) and must say it's **amazing**.
@@ -27,4 +27,3 @@ Currently Im discovering _Ruby_ and _Ruby on Rails_ (v4) and must say it's **ama
 `Email: robert.weclawski@mykolab.com`     
 `KeyID: 0x47743A17`    
 `Fingerprint: E967 8AE5 7D98 965F A0DE 66CC 9469 2712 4774 3A17`    
-
