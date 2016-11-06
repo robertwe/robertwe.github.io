@@ -43,7 +43,7 @@ select lens automatically if we do not specify any.
 Below is an example how we can make changes in `grub.conf` (real world example I use in the puppet):
 
 
-{% highlight ruby %}
+{% highlight ruby linenos %}
     augeas { 'grub_conf':
       incl    => '/boot/grub/grub.conf',
       lens    => 'grub.lns',
