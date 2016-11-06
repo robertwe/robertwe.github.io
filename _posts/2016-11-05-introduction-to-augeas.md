@@ -25,6 +25,7 @@ Augeas is not a new solution and provides bindings for most of popular programmi
 It's not a surprise it;s also available in Puppet by default. 
 
 If I want to add some value to `sysctl.conf` I can do this like this:
+
 ```ruby
 augeas { "sysctl":
   context => '/files/etc/sysctl.conf',
