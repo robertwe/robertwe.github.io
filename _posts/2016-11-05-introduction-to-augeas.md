@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Quick introduction to Augeas'
+title: 'Quick introduction to Augeas in Puppet'
 date: 2016-11-05 23:30:00.00 +02:00
 tag: Provisioning
 ---
