@@ -43,19 +43,18 @@ I did not check how in works under the hood in puppet but I suspect the puppet
 select lens automatically if we do not specify any.
 Below is an example how we can make changes in `grub.conf` (real world example I use in the puppet):
 
-
-{% highlight ruby linenos %}
-    augeas { 'grub_conf':
-      incl    => '/boot/grub/grub.conf',
-      lens    => 'grub.lns',
-      changes => [
-        'set default 0',
-        'setm  title[1]/kernel swapaccount 1',
-        'rm  title[1]/kernel/quiet',
-        'rm  title[1]/kernel/rhgb'
-        ],
-      require => Package['kernel-lt']
-    }
+{% highlight ruby %}
+augeas { 'grub_conf':
+  incl    => '/boot/grub/grub.conf',
+  lens    => 'grub.lns',
+  changes => [
+    'set default 0',
+    'setm  title[1]/kernel swapaccount 1',
+    'rm  title[1]/kernel/quiet',
+    'rm  title[1]/kernel/rhgb'
+    ],
+  require => Package['kernel-lt']
+}
 {% endhighlight %}
 
 
