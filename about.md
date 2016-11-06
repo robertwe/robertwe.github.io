@@ -12,7 +12,7 @@ I create amazing websites and web applications for clients from all around the W
 At my work I follow the path of Software Craftsman (at least I do my best). Who is that you can ask ?
 In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
 At at my work I use varous technology mainly _PHP_ (Symfony2), _Python_ (Twisted, Django) and _Java_ (mainly Spring4).
-Currently Im discovering _Ruby_ and _Ruby on Rails_ (v4) and must say it's **amazing**.
+Currently Im discovering _Ruby_ and _Ruby on Rails_ (v5) and must say it's **amazing**.
 
 <div class="github-card" data-github="robertwe" data-width="400" data-height="150"></div>
 <script src="http://lab.lepture.com/github-cards/widget.js"></script>
