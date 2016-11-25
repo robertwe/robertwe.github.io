@@ -10,7 +10,7 @@ from branch 3.10 on CentOS6 and there was a need to update `grub.conf` - change 
 Both mentioned operation had to be done in Puppet 3.7. Sounds easy right ?
 In the traditional approach (I saw it in many companies) I would probably
 create another template but I was wondering if there is a way to do it in a
-more elegant and universal way. Of course we can create another template
+more elegant and universal way.{% raw %}&nbsp;{% endraw %} Of course we can create another template
 and do not think about that but what if we actually do not know what we can expect
 in `grub.conf`. Serving `grub.conf` as a template can have bunch of other
 implication - dealing with updates, mixed versions of kernels ect.
