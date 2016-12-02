@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Prices for base VM on Xen cluster"
+title: "Prices for VMs on Xen cluster"
 description: ""
 permalink: /prices.html
 ---
