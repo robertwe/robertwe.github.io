@@ -22,15 +22,19 @@ permalink: /prices.html
 
 <hr />
 
-{% highlight ruby %}
-def show
-  @widget = Widget(params[:id])
-  respond_to do |format|
-    format.html # show.html.erb
-    format.json { render json: @widget }
-  end
-end
-{% endhighlight %}
+
+### Our universe (in SI units):
+
+$$
+\begin{align*}
+  \frac{\partial\mathcal{D}}{\partial t} \quad & = \quad \nabla\times\mathcal{H},   & \quad \text{(Faraday's law)} \\[5pt]
+  \frac{\partial\mathcal{B}}{\partial t} \quad & = \quad -\nabla\times\mathcal{E},  & \quad \text{(Ampère's circuital law)}   \\[5pt]
+  \nabla\cdot\mathcal{B}                 \quad & = \quad 0,                         & \quad \text{(Gauss's law for magnetism)}   \\[5pt]
+  \nabla\cdot\mathcal{D}                 \quad & = \quad 0.                         & \quad \text{(Coulomb's Law)}
+  \end{align*}
+$$
+
+<hr />
 
 $$
 \begin{align*}
@@ -48,3 +52,23 @@ $$
     \end{array} \right)
 \end{align*}
 $$
+<hr />
+$$
+\begin{array}{c|lcr}
+n & \text{Left} & \text{Center} & \text{Right} \\
+\hline
+1 & 0.24 & 1 & 125 \\
+2 & -1 & 189 & -8 \\
+3 & -20 & 2000 & 1+10i
+\end{array}
+$$
+
+{% highlight ruby %}
+def show
+  @widget = Widget(params[:id])
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
+{% endhighlight %}
