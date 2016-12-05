@@ -11,8 +11,12 @@ Hey, my name is Robert and Im a husband, father of three and software developer.
 I create amazing websites and web applications for clients from all around the World;
 At my work I follow the path of Software Craftsman (at least I do my best). Who is that you can ask ?
 In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
-At at my work I use varous technology mainly _PHP_ (Symfony2), _Python_ (Twisted, Django) and _Java_ (mainly Spring4).
-Currently Im discovering _Ruby_ and _Ruby on Rails_ (v5) and must say it's **amazing**.
+At at my work I use various technology mainly _PHP_ (Symfony2), _Python_ (Twisted, Django) and _Java_ (mainly Spring4) and Ruby.
+Ruby and Rails (v5) recently attract my attention. It's easy, elegant and provides quick solutions for most common problems at my daily routines. 
+The more I use it the more I admire it.
+Currently to become familiar with one of the functional languages. I selected *[Elixir](http://elixir-lang.org/)* mainly because of 
+*[Phoenix](http://www.phoenixframework.org/docs/overview)* framework which is a web development framework.
+
 
 <div class="github-card" data-github="robertwe" data-width="400" data-height="150"></div>
 <script src="http://lab.lepture.com/github-cards/widget.js"></script>
