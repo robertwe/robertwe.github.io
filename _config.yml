@@ -11,7 +11,7 @@ highlighter: rouge
 excerpt_separator: "&nbsp;"
 markdown: kramdown
 title : Robert's notes
-tagline: Web applications, Devops, Ruby, Ruby On Rails, PHP, Symfony2, Java, Python, Web apps security, Linux
+tagline: Web development, Devops, GoLang, Ruby, Ruby On Rails, PHP, Symfony2, Java, Python, Web apps security, Linux
 author :
   name : Robert
   email : robert.weclawski@mykolab.com
@@ -135,4 +135,4 @@ wakatime:
   username: robertwe
   charts:
     - f7fd7872-30f5-4701-b15b-3cdc484abd5d
-    - e4055095-6148-4480-888f-ecafd916c002
+    #- e4055095-6148-4480-888f-ecafd916c002
