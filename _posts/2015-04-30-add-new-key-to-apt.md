@@ -14,7 +14,8 @@ W: An error occurred during the signature verification. The repository is not up
 GPG error: http://xxxxxxx ./ Release: The following signatures couldn't be verified because
 the public key is not available: NO_PUBKEY 0000000000
 ```
-&nbsp;
+
+<!--more-->
 
 Solution for it is very straight forward but lets write it down here since I always forgot how to do this.
 Here it is:

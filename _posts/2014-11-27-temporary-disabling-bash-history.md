@@ -10,7 +10,7 @@ How to do it ? It's actually very simple.
 You can achieve this by `unset HISTFILE`. Of course in such case we only disable history 
 for current session. 
 What if we want to selectively do not put some commands into bash history ? 
-{% raw %}&nbsp;{% endraw %}
+<!--more-->
 We can do it via `HISTCONTROL` variable. From Bash man page:
 
     HISTCONTROL

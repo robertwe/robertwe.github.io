@@ -6,7 +6,7 @@ category:
 tags: [Ghost, Jekyll]
 ---
 {% include JB/setup %}
-After some time I finally decided to drop Ghost and migrate to some other tool/system. &nbsp;    
+After some time I finally decided to drop Ghost and migrate to some other tool/system. <!--more-->   
 _Why I did not stick with Ghost:_
 
    -  when I would like to put some `code` in the post Ghost formating makes me cry - simple does not work (does not mean I did not try)

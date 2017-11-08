@@ -8,7 +8,7 @@ highlighter: rouge
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-excerpt_separator: "&nbsp;"
+excerpt_separator: "<!--more-->"
 markdown: kramdown
 title : Robert's notes
 tagline: Web development, Devops, GoLang, Ruby, Ruby On Rails, PHP, Symfony2, Java, Python, Web apps security, Linux

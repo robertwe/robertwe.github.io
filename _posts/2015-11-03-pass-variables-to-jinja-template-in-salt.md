@@ -6,7 +6,7 @@ tag: Salt
 ---
 Yesterday I faced quite interesting problem.
 In my SLS definition I was iterating over some hash of hashes and wanted to pass to Jinja template
-hash, which was present in current iteration. {% raw %}&nbsp;{% endraw %}
+hash, which was present in current iteration. <!--more-->
 To make it more clear let show you the problem in the code:
 
 ```yaml

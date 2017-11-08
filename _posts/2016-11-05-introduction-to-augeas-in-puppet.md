@@ -7,7 +7,7 @@ category: Automation
 ---
 Recently I came across an interesting problem. I had to install kernel
 from branch 3.10 on CentOS6 and there was a need to update `grub.conf` - change default kernel plus add boot option.
-Both mentioned operation had to be done in Puppet 3.7 (Augeas are of course also available in the higher version of Puppet). Sounds easy right? {% raw %}&nbsp;{% endraw %}
+Both mentioned operation had to be done in Puppet 3.7 (Augeas are of course also available in the higher version of Puppet). Sounds easy right? <!--more--> 
 In the traditional approach (I saw it in many companies) I would probably
 create another template but I was wondering if there is a way to do it in a
 more elegant and universal way. Of course we can create another template

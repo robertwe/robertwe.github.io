@@ -15,9 +15,7 @@ iptables: Setting chains to policy ACCEPT: security raw nat[FAILED]filter
 iptables: Unloading modules:                               [  OK  ]
 iptables: Applying firewall rules:                         [  OK  ]
 {% endhighlight %} 
-{% raw %}
-&nbsp;
-{% endraw %}
+<!--more-->
 After I quick research (google) I found an answer for that:
 [here is the link](http://www.hostvirtual.com/kb/6383/IPtables-returns-an-error--security-raw-nat-mangle-filter-FAILED.html)
 
