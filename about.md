@@ -13,7 +13,7 @@ At the same time I also love to automate things.
 At my work I follow the path of Software Craftsman (at least I do my best). Who is that you can ask ?
 In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
 At at my work I use various technology mainly _GoLang_, _PHP_ (Symfony2), _Ruby_ (Ruby On Rails).
-Additionally _Jenkins_, _SaltStack_, _Terraform_ and _Python_ help me with automate almost every aspect of the software development cycle.    
+Additionally [_Jenkins_](https://jenkins-ci.org/), [_SaltStack_](https://saltstack.com/), [_Terraform_](https://www.terraform.io/) and [_Python_](https://www.python.org/) help me with automate almost every aspect of the software development cycle.    
 
 <div class="github-card" data-github="robertwe" data-width="400" data-height="150"></div>
 <script src="https://lab.lepture.com/github-cards/widget.js"></script>
