@@ -16,7 +16,7 @@ At at my work I use various technology mainly _GoLang_, _PHP_ (Symfony2), _Ruby_
 Additionally _Jenkins_, _SaltStack_, _Terraform_ and _Python_ help me with automate almost every aspect of the software development cycle.    
 
 <div class="github-card" data-github="robertwe" data-width="400" data-height="150"></div>
-<script src="http://lab.lepture.com/github-cards/widget.js"></script>
+<script src="https://lab.lepture.com/github-cards/widget.js"></script>
 <br />
 <p style="width: 160px;">
     <a href="https://www.linkedin.com/in/robertweclawski">
