@@ -32,7 +32,7 @@ custom:
     disqus :
       short_name : robertwe
 
-theme: jekyll-whiteglass
+theme: jekyll-theme-slate
 
 markdown: kramdown
 highlighter: rouge
