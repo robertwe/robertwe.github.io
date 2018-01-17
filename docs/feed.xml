@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.5.1">Jekyll</generator>
   
   
-  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2018-01-17T21:45:41+01:00</updated>
-  <id>http://localhost:4000//</id>
+  <link href="https://roberts-notes.blog/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://roberts-notes.blog/" rel="alternate" type="text/html" />
+  <updated>2018-01-17T21:55:51+01:00</updated>
+  <id>https://roberts-notes.blog//</id>
 
   
     <title type="html">Robert’s notes</title>
@@ -24,11 +24,11 @@
       
       <title type="html">Quick introduction to Augeas in Puppet</title>
       
-      <link href="http://localhost:4000/2016/11/05/introduction-to-augeas-in-puppet/" rel="alternate" type="text/html" title="Quick introduction to Augeas in Puppet" />
+      <link href="https://roberts-notes.blog/2016/11/05/introduction-to-augeas-in-puppet/" rel="alternate" type="text/html" title="Quick introduction to Augeas in Puppet" />
       <published>2016-11-05T22:30:00+01:00</published>
       <updated>2016-11-05T22:30:00+01:00</updated>
-      <id>http://localhost:4000/2016/11/05/introduction-to-augeas-in-puppet</id>
-      <content type="html" xml:base="http://localhost:4000/2016/11/05/introduction-to-augeas-in-puppet/">&lt;p&gt;Recently I came across an interesting problem. I had to install kernel
+      <id>https://roberts-notes.blog/2016/11/05/introduction-to-augeas-in-puppet</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2016/11/05/introduction-to-augeas-in-puppet/">&lt;p&gt;Recently I came across an interesting problem. I had to install kernel
 from branch 3.10 on CentOS6 and there was a need to update &lt;code class=&quot;highlighter-rouge&quot;&gt;grub.conf&lt;/code&gt; - change default kernel plus add boot option.
 Both mentioned operation had to be done in Puppet 3.7 (Augeas are of course also available in the higher version of Puppet). Sounds easy right? &lt;!--more--&gt; 
 In the traditional approach (I saw it in many companies) I would probably
@@ -171,11 +171,11 @@ Robert&lt;/p&gt;</content>
       
       <title type="html">How to pass variable to Jinja template in Salt</title>
       
-      <link href="http://localhost:4000/2015/11/03/pass-variables-to-jinja-template-in-salt/" rel="alternate" type="text/html" title="How to pass variable to Jinja template in Salt" />
+      <link href="https://roberts-notes.blog/2015/11/03/pass-variables-to-jinja-template-in-salt/" rel="alternate" type="text/html" title="How to pass variable to Jinja template in Salt" />
       <published>2015-11-03T21:00:00+01:00</published>
       <updated>2015-11-03T21:00:00+01:00</updated>
-      <id>http://localhost:4000/2015/11/03/pass-variables-to-jinja-template-in-salt</id>
-      <content type="html" xml:base="http://localhost:4000/2015/11/03/pass-variables-to-jinja-template-in-salt/">&lt;p&gt;Yesterday I faced quite interesting problem.
+      <id>https://roberts-notes.blog/2015/11/03/pass-variables-to-jinja-template-in-salt</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2015/11/03/pass-variables-to-jinja-template-in-salt/">&lt;p&gt;Yesterday I faced quite interesting problem.
 In my SLS definition I was iterating over some hash of hashes and wanted to pass to Jinja template
 hash, which was present in current iteration. &lt;!--more--&gt;
 To make it more clear let show you the problem in the code:&lt;/p&gt;
@@ -249,11 +249,11 @@ Here is the final version of my sls snippet (aka solution):&lt;/p&gt;
       
       <title type="html">Add new key to APT AKA tell APT to trust given key</title>
       
-      <link href="http://localhost:4000/2015/04/30/add-new-key-to-apt/" rel="alternate" type="text/html" title="Add new key to APT AKA tell APT to trust given key" />
+      <link href="https://roberts-notes.blog/2015/04/30/add-new-key-to-apt/" rel="alternate" type="text/html" title="Add new key to APT AKA tell APT to trust given key" />
       <published>2015-04-30T08:00:03+02:00</published>
       <updated>2015-04-30T08:00:03+02:00</updated>
-      <id>http://localhost:4000/2015/04/30/add-new-key-to-apt</id>
-      <content type="html" xml:base="http://localhost:4000/2015/04/30/add-new-key-to-apt/">&lt;p&gt;One of my desktop box I recently got this message when I wanted to update it via &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; :&lt;/p&gt;
+      <id>https://roberts-notes.blog/2015/04/30/add-new-key-to-apt</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2015/04/30/add-new-key-to-apt/">&lt;p&gt;One of my desktop box I recently got this message when I wanted to update it via &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; :&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fetched 1448 B in 8s (180 B/s)
 Reading package lists... Done
@@ -306,11 +306,11 @@ gpg -a --export keyId | sudo apt-key add -
       
       <title type="html">Why you should not use kill -9</title>
       
-      <link href="http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill-9/" rel="alternate" type="text/html" title="Why you should not use kill -9" />
+      <link href="https://roberts-notes.blog/2015/03/19/why-you-shoudnt-use-kill-9/" rel="alternate" type="text/html" title="Why you should not use kill -9" />
       <published>2015-03-19T19:46:03+01:00</published>
       <updated>2015-03-19T19:46:03+01:00</updated>
-      <id>http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill--9</id>
-      <content type="html" xml:base="http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill-9/">&lt;p&gt;I recenty found this advice given by &lt;em&gt;Randal Schwartz&lt;/em&gt;.
+      <id>https://roberts-notes.blog/2015/03/19/why-you-shoudnt-use-kill--9</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2015/03/19/why-you-shoudnt-use-kill-9/">&lt;p&gt;I recenty found this advice given by &lt;em&gt;Randal Schwartz&lt;/em&gt;.
 I think most of programmers got some idea who he is.
 Anyway if you have not had to touch Perl here is the link to &lt;a href=&quot;https://en.wikipedia.org/wiki/Randal_L._Schwartz&quot;&gt;wiki page&lt;/a&gt;.&lt;/p&gt;
 
@@ -404,11 +404,11 @@ Don't use kill -9. Don't bring out the combine harvester just to tidy up the flo
       
       <title type="html">Temporary Disabling Bash History</title>
       
-      <link href="http://localhost:4000/2014/11/27/temporary-disabling-bash-history/" rel="alternate" type="text/html" title="Temporary Disabling Bash History" />
+      <link href="https://roberts-notes.blog/2014/11/27/temporary-disabling-bash-history/" rel="alternate" type="text/html" title="Temporary Disabling Bash History" />
       <published>2014-11-27T00:00:00+01:00</published>
       <updated>2014-11-27T00:00:00+01:00</updated>
-      <id>http://localhost:4000/2014/11/27/temporary-disabling-bash-history</id>
-      <content type="html" xml:base="http://localhost:4000/2014/11/27/temporary-disabling-bash-history/">&lt;p&gt;How to do it ? It’s actually very simple.
+      <id>https://roberts-notes.blog/2014/11/27/temporary-disabling-bash-history</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/11/27/temporary-disabling-bash-history/">&lt;p&gt;How to do it ? It’s actually very simple.
 You can achieve this by &lt;code class=&quot;highlighter-rouge&quot;&gt;unset HISTFILE&lt;/code&gt;. Of course in such case we only disable history 
 for current session. 
 What if we want to selectively do not put some commands into bash history ? 
@@ -465,11 +465,11 @@ this &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;space&amp;gt;mysql 
       
       <title type="html">Add timestamp to Bash history</title>
       
-      <link href="http://localhost:4000/2014/07/01/add-timestamp-to-bash-history/" rel="alternate" type="text/html" title="Add timestamp to Bash history" />
+      <link href="https://roberts-notes.blog/2014/07/01/add-timestamp-to-bash-history/" rel="alternate" type="text/html" title="Add timestamp to Bash history" />
       <published>2014-07-01T08:30:46+02:00</published>
       <updated>2014-07-01T08:30:46+02:00</updated>
-      <id>http://localhost:4000/2014/07/01/add-timestamp-to-bash-history</id>
-      <content type="html" xml:base="http://localhost:4000/2014/07/01/add-timestamp-to-bash-history/">&lt;p&gt;Sometimes there is a need to add timestamp to bash history.
+      <id>https://roberts-notes.blog/2014/07/01/add-timestamp-to-bash-history</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/07/01/add-timestamp-to-bash-history/">&lt;p&gt;Sometimes there is a need to add timestamp to bash history.
 At my work I found it quite useful especially when some other developers 
 got access to the same box or when you simple want to have an idea when command from history was executed.  
 This is how we can achieve this:&lt;/p&gt;
@@ -514,11 +514,11 @@ Robert&lt;/p&gt;</content>
       
       <title type="html">IPtables returns an error : security raw nat mangle filter FAILED</title>
       
-      <link href="http://localhost:4000/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/" rel="alternate" type="text/html" title="IPtables returns an error : security raw nat mangle filter FAILED" />
+      <link href="https://roberts-notes.blog/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/" rel="alternate" type="text/html" title="IPtables returns an error : security raw nat mangle filter FAILED" />
       <published>2014-06-28T12:13:09+02:00</published>
       <updated>2014-06-28T12:13:09+02:00</updated>
-      <id>http://localhost:4000/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed</id>
-      <content type="html" xml:base="http://localhost:4000/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/">&lt;p&gt;After set up of the “linode” on linode.com I stared configuring the firewall (iptables).
+      <id>https://roberts-notes.blog/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/">&lt;p&gt;After set up of the “linode” on linode.com I stared configuring the firewall (iptables).
 After writing down all my rules and tried to restart iptables but output like this:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;service iptables restart
@@ -580,11 +580,11 @@ iptables: Applying firewall rules:                         &lt;span class=&quot;
       
       <title type="html">Hosting migration</title>
       
-      <link href="http://localhost:4000/2014/06/28/hosting-migration/" rel="alternate" type="text/html" title="Hosting migration" />
+      <link href="https://roberts-notes.blog/2014/06/28/hosting-migration/" rel="alternate" type="text/html" title="Hosting migration" />
       <published>2014-06-28T11:52:36+02:00</published>
       <updated>2014-06-28T11:52:36+02:00</updated>
-      <id>http://localhost:4000/2014/06/28/hosting-migration</id>
-      <content type="html" xml:base="http://localhost:4000/2014/06/28/hosting-migration/">&lt;p&gt;I recently noticed I actually spend a lot of money to hosting and server resources Im not using at all. 
+      <id>https://roberts-notes.blog/2014/06/28/hosting-migration</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/06/28/hosting-migration/">&lt;p&gt;I recently noticed I actually spend a lot of money to hosting and server resources Im not using at all. 
 Such a waste. After a small research I decided to move all my Droplets from &lt;a href=&quot;https://www.digitalocean.com/&quot;&gt;DigitalOcean.com&lt;/a&gt; 
 to its competitor &amp;gt; &lt;a href=&quot;https://www.linode.com&quot;&gt;linode.com&lt;/a&gt; . I also hosted 2 sites on a separate hosting - elastichost.com 
 which is also rather expensive. 
@@ -650,11 +650,11 @@ It was visible quite much especially on my Redmine instance and other RoR based 
       
       <title type="html">Goal for the next 2-3 months</title>
       
-      <link href="http://localhost:4000/2014/06/28/goal-for-the-next-2-3-months/" rel="alternate" type="text/html" title="Goal for the next 2-3 months" />
+      <link href="https://roberts-notes.blog/2014/06/28/goal-for-the-next-2-3-months/" rel="alternate" type="text/html" title="Goal for the next 2-3 months" />
       <published>2014-06-28T11:21:42+02:00</published>
       <updated>2014-06-28T11:21:42+02:00</updated>
-      <id>http://localhost:4000/2014/06/28/goal-for-the-next-2-3-months</id>
-      <content type="html" xml:base="http://localhost:4000/2014/06/28/goal-for-the-next-2-3-months/">&lt;h2 id=&quot;my-goal-for-the-next-2-or-3-months&quot;&gt;My goal for the next 2 or 3 months:&lt;/h2&gt;
+      <id>https://roberts-notes.blog/2014/06/28/goal-for-the-next-2-3-months</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/06/28/goal-for-the-next-2-3-months/">&lt;h2 id=&quot;my-goal-for-the-next-2-or-3-months&quot;&gt;My goal for the next 2 or 3 months:&lt;/h2&gt;
 &lt;p&gt;I recently found &lt;a href=&quot;http://ejohn.org/blog/write-code-every-day/&quot;&gt;this&lt;/a&gt; blog entry over the internet. Lets see how it will go :). 
 In general I think this is quite good idea. Mainly because you adapt to a “routine” of writing a code (if you are not already addicted like mew :D). This is a definietely a good training for your brain. 
 Here is a link to my GitHub profile: https://github.com/robertwe
@@ -692,11 +692,11 @@ Robert&lt;/p&gt;</content>
       
       <title type="html">CentOS6 “host” and “dig” commands are missing</title>
       
-      <link href="http://localhost:4000/2014/05/20/centos6-host-command-is-missing/" rel="alternate" type="text/html" title="CentOS6 &quot;host&quot; and &quot;dig&quot; commands are missing" />
+      <link href="https://roberts-notes.blog/2014/05/20/centos6-host-command-is-missing/" rel="alternate" type="text/html" title="CentOS6 &quot;host&quot; and &quot;dig&quot; commands are missing" />
       <published>2014-05-20T20:39:37+02:00</published>
       <updated>2014-05-20T20:39:37+02:00</updated>
-      <id>http://localhost:4000/2014/05/20/centos6-host-command-is-missing</id>
-      <content type="html" xml:base="http://localhost:4000/2014/05/20/centos6-host-command-is-missing/">&lt;p&gt;Recently I configured new machine with CentOS6.5 on the board and it looks like the $&lt;em&gt;host&lt;/em&gt; command was missing.
+      <id>https://roberts-notes.blog/2014/05/20/centos6-host-command-is-missing</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/05/20/centos6-host-command-is-missing/">&lt;p&gt;Recently I configured new machine with CentOS6.5 on the board and it looks like the $&lt;em&gt;host&lt;/em&gt; command was missing.
 Here is a quick solution for that: &lt;!--more--&gt;
 yum install bind-utils&lt;/p&gt;
 
@@ -834,11 +834,11 @@ Other       : Provides-match: /usr/bin/dig&lt;/code&gt;&lt;/pre&gt;&lt;/figure&g
       
       <title type="html">Is TDD Dead ?</title>
       
-      <link href="http://localhost:4000/2014/05/09/is-tdd-dead/" rel="alternate" type="text/html" title="Is TDD Dead ?" />
+      <link href="https://roberts-notes.blog/2014/05/09/is-tdd-dead/" rel="alternate" type="text/html" title="Is TDD Dead ?" />
       <published>2014-05-09T21:24:39+02:00</published>
       <updated>2014-05-09T21:24:39+02:00</updated>
-      <id>http://localhost:4000/2014/05/09/is-tdd-dead</id>
-      <content type="html" xml:base="http://localhost:4000/2014/05/09/is-tdd-dead/">&lt;p&gt;Today I watched quite interesting hangout. It was a quick (30min) discussion.
+      <id>https://roberts-notes.blog/2014/05/09/is-tdd-dead</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/05/09/is-tdd-dead/">&lt;p&gt;Today I watched quite interesting hangout. It was a quick (30min) discussion.
 Attenders:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -881,11 +881,11 @@ As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organize
       
       <title type="html">Keynote: Architecture the Lost Years by Robert Martin</title>
       
-      <link href="http://localhost:4000/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/" rel="alternate" type="text/html" title="Keynote: Architecture the Lost Years by Robert Martin" />
+      <link href="https://roberts-notes.blog/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/" rel="alternate" type="text/html" title="Keynote: Architecture the Lost Years by Robert Martin" />
       <published>2014-05-03T23:59:55+02:00</published>
       <updated>2014-05-03T23:59:55+02:00</updated>
-      <id>http://localhost:4000/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin</id>
-      <content type="html" xml:base="http://localhost:4000/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/">&lt;p&gt;Here is a talk Uncle Bob gave in 2011 at &lt;strong&gt;Ruby Midewest 2011&lt;/strong&gt;. Honestly I back to this talk every two months or so. Also must to add that Im a great fun of &lt;strong&gt;Uncle Bob&lt;/strong&gt; (&lt;a href=&quot;https://twitter.com/unclebobmartin&quot;&gt;@unclebobmartin&lt;/a&gt;) It also contains some notes about MVC, what’s the true purpose of MVC and it was created and so on. Here it is (you need to click on &lt;strong&gt;Read more&lt;/strong&gt; to load the embeded youtube video):&lt;/p&gt;
+      <id>https://roberts-notes.blog/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/">&lt;p&gt;Here is a talk Uncle Bob gave in 2011 at &lt;strong&gt;Ruby Midewest 2011&lt;/strong&gt;. Honestly I back to this talk every two months or so. Also must to add that Im a great fun of &lt;strong&gt;Uncle Bob&lt;/strong&gt; (&lt;a href=&quot;https://twitter.com/unclebobmartin&quot;&gt;@unclebobmartin&lt;/a&gt;) It also contains some notes about MVC, what’s the true purpose of MVC and it was created and so on. Here it is (you need to click on &lt;strong&gt;Read more&lt;/strong&gt; to load the embeded youtube video):&lt;/p&gt;
 
 &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/WpkDN78P884&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content>
 
@@ -915,11 +915,11 @@ As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organize
       
       <title type="html">For a good start of a working day</title>
       
-      <link href="http://localhost:4000/2014/05/03/for-a-good-start-of-a-working-day/" rel="alternate" type="text/html" title="For a good start of a working day" />
+      <link href="https://roberts-notes.blog/2014/05/03/for-a-good-start-of-a-working-day/" rel="alternate" type="text/html" title="For a good start of a working day" />
       <published>2014-05-03T23:47:04+02:00</published>
       <updated>2014-05-03T23:47:04+02:00</updated>
-      <id>http://localhost:4000/2014/05/03/for-a-good-start-of-a-working-day</id>
-      <content type="html" xml:base="http://localhost:4000/2014/05/03/for-a-good-start-of-a-working-day/">&lt;h2 id=&quot;have-a-great-day&quot;&gt;Have a great day&lt;/h2&gt;
+      <id>https://roberts-notes.blog/2014/05/03/for-a-good-start-of-a-working-day</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/05/03/for-a-good-start-of-a-working-day/">&lt;h2 id=&quot;have-a-great-day&quot;&gt;Have a great day&lt;/h2&gt;
 
 &lt;iframe src=&quot;//player.vimeo.com/video/75755258&quot; width=&quot;500&quot; height=&quot;281&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;p&gt;&lt;a href=&quot;http://vimeo.com/75755258&quot;&gt;Swedish House Mafia - Greyhound&lt;/a&gt; from &lt;a href=&quot;http://vimeo.com/biglazyrobot&quot;&gt;BLR_VFX&lt;/a&gt; on &lt;a href=&quot;https://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
@@ -954,11 +954,11 @@ As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organize
       
       <title type="html">first post</title>
       
-      <link href="http://localhost:4000/2014/05/03/first-post/" rel="alternate" type="text/html" title="first post" />
+      <link href="https://roberts-notes.blog/2014/05/03/first-post/" rel="alternate" type="text/html" title="first post" />
       <published>2014-05-03T22:40:03+02:00</published>
       <updated>2014-05-03T22:40:03+02:00</updated>
-      <id>http://localhost:4000/2014/05/03/first-post</id>
-      <content type="html" xml:base="http://localhost:4000/2014/05/03/first-post/">&lt;h4 id=&quot;lets-write-it-down&quot;&gt;Let’s write it down.&lt;/h4&gt;
+      <id>https://roberts-notes.blog/2014/05/03/first-post</id>
+      <content type="html" xml:base="https://roberts-notes.blog/2014/05/03/first-post/">&lt;h4 id=&quot;lets-write-it-down&quot;&gt;Let’s write it down.&lt;/h4&gt;
 &lt;p&gt;To be honest I don’t remember when I actually started thinking about writing down most the solutions I found over the internet or implemented myself.
 I realized that from time to time I go back to solutions, code snippets or config files I created or modified to fulfill some specific requirements. Good is it I wrote it down somewhere, put on &lt;a href=&quot;https://gist.github.com/robertwe&quot;&gt;Gist&lt;/a&gt; or &lt;a href=&quot;http://pastebin.com/&quot;&gt;Pastebin&lt;/a&gt; but what if I did not ? 
 Let’s say I just configured Nginx as loadbalancer and for example after a year or so I need to make something exactly the same or at last similar. What’s then ? I need to go through the NGINX’s documentation again or start searching over google. Sure in some case I remember exactly how I solved some specific problem but when it was some time ago then …
