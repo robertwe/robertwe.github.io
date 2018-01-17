@@ -488,11 +488,11 @@ textarea:focus {
   border-color: #333; }
 
 div.footer {
-  margin: 10px, 10px, 10px, 10px;
+  margin: 10px;
   display: inline-block; }
 
 span.footer {
-  margin: 10px, 10px, 10px, 10px;
+  margin: 10px 10px 10px 10px;
   display: block; }
 
 .highlight .k {
