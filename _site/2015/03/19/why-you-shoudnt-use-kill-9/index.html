@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Why you should not use kill -9</title>
+  <meta name="description" content="I recenty found this advice given by Randal Schwartz. I think most of programmers got some idea who he is. Anyway if you have not had to touch Perl here is the link to wiki page. Here is the advice from Randal:">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill-9/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Robert&#39;s notes" href="http://localhost:4000/feed.xml">
+
+  <!--
+ ██████╗ ██████╗ ███████╗███████╗████████╗██╗███╗   ██╗ ██████╗ ███████╗    ██╗
+██╔════╝ ██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║████╗  ██║██╔════╝ ██╔════╝    ██║
+██║  ███╗██████╔╝█████╗  █████╗     ██║   ██║██╔██╗ ██║██║  ███╗███████╗    ██║
+██║   ██║██╔══██╗██╔══╝  ██╔══╝     ██║   ██║██║╚██╗██║██║   ██║╚════██║    ╚═╝
+╚██████╔╝██║  ██║███████╗███████╗   ██║   ██║██║ ╚████║╚██████╔╝███████║    ██╗
+ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝    ╚═╝
+-->
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="rweclawski">
+  <meta name="twitter:title" content="Why you should not use kill -9">
+  <meta name="twitter:description" content="I recenty found this advice given by Randal Schwartz. I think most of programmers got some idea who he is. Anyway if you have not had to touch Perl here is the link to wiki page. Here is the advice...">
+  
+    <meta name="twitter:creator" content="rweclawski">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-50640818-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Robert&#39;s notes</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/">Main</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="/stats/">Stats</a>
+      
+        
+        <a class="page-link" href="/contact/">Contact</a>
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Why you should not use kill -9</h1>
+    
+    <p class="post-meta"><time datetime="2015-03-19T19:46:03+01:00" itemprop="datePublished">Mar 19, 2015</time>
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/linux/">Linux</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>I recenty found this advice given by <em>Randal Schwartz</em>.
+I think most of programmers got some idea who he is.
+Anyway if you have not had to touch Perl here is the link to <a href="https://en.wikipedia.org/wiki/Randal_L._Schwartz">wiki page</a>.</p>
+
+<p>Here is the advice from Randal:</p>
+
+<!--more-->
+
+<div class="highlighter-rouge"><pre class="highlight"><code>No no no. Don't use kill -9.    
+It doesn't give the process a chance to cleanly:    
+1) shut down socket connections    
+2) clean up temp files    
+3) inform its children that it is going away    
+4) reset its terminal characteristics    
+and so on and so on and so on.    
+Generally, send 15, and wait a second or two, and if that doesn't work, send 2, and if     
+that doesn't work, send 1. If that doesn't, REMOVE THE BINARY because the program is    
+badly behaved!    
+Don't use kill -9. Don't bring out the combine harvester just to tidy up the flower pot.
+</code></pre>
+</div>
+
+<p>In a short:</p>
+
+<ul>
+  <li><em>15</em> is <em>SIGTERM</em> (terminate),</li>
+  <li><em>2</em> is <em>SIGINT</em> (interrupt, ctrl-c),</li>
+  <li><em>1</em> is <em>SIGHUP</em> (terminal hangup, often overloaded to keep a process running but reload the config)</li>
+</ul>
+
+<p>For those who would like to have full overview to all availabe signals here is a snippet from <code class="highlighter-rouge">signal.h</code>:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#define SIGHUP           1
+#define SIGINT           2
+#define SIGQUIT          3
+#define SIGILL           4
+#define SIGTRAP          5
+#define SIGABRT          6
+#define SIGIOT           6
+#define SIGBUS           7
+#define SIGFPE           8
+#define SIGKILL          9
+#define SIGUSR1         10
+#define SIGSEGV         11
+#define SIGUSR2         12
+#define SIGPIPE         13
+#define SIGALRM         14
+#define SIGTERM         15
+#define SIGSTKFLT       16
+#define SIGCHLD         17
+#define SIGCONT         18
+#define SIGSTOP         19
+#define SIGTSTP         20
+#define SIGTTIN         21
+#define SIGTTOU         22
+#define SIGURG          23
+#define SIGXCPU         24
+#define SIGXFSZ         25
+#define SIGVTALRM       26
+#define SIGPROF         27
+#define SIGWINCH        28
+#define SIGIO           29
+#define SIGPOLL         SIGIO</span></code></pre></figure>
+
+<p>–robert</p>
+
+  </div>
+
+  
+    <div class="post-comments" itemprop="comment">
+      <hr />
+<h1>Comments</h1>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'robertwe'; 
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+    <div class="wrapper">
+      <p>
+        
+
+<div class="misc-content">
+    <div class="social">
+        <ul class="list-linear">
+            <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="" data-lang="en">Tweet</a></div></li>
+            <li><div class="twitter-follow"><a href="https://twitter.com/" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+        </ul>
+    </div>
+</div>
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+      </p>
+    </div>
+  </footer>
+
+  </body>
+
+</html>

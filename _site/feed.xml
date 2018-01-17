@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <generator uri="http://jekyllrb.com" version="3.5.1">Jekyll</generator>
+  
+  
+  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
+  <updated>2018-01-17T19:02:20+01:00</updated>
+  <id>http://localhost:4000//</id>
+
+  
+    <title type="html">Robert’s notes</title>
+  
+
+  
+    <subtitle></subtitle>
+  
+
+  
+
+  
+  
+    <entry>
+      
+      <title type="html">Code Highlight</title>
+      
+      <link href="http://localhost:4000/2018/01/16/code-highlight/" rel="alternate" type="text/html" title="Code Highlight" />
+      <published>2018-01-16T00:00:00+01:00</published>
+      <updated>2018-01-16T00:00:00+01:00</updated>
+      <id>http://localhost:4000/2018/01/16/code-highlight</id>
+      <content type="html" xml:base="http://localhost:4000/2018/01/16/code-highlight/"></content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+
+      
+        <summary type="html"></summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Quick introduction to Augeas in Puppet</title>
+      
+      <link href="http://localhost:4000/2016/11/05/introduction-to-augeas-in-puppet/" rel="alternate" type="text/html" title="Quick introduction to Augeas in Puppet" />
+      <published>2016-11-05T22:30:00+01:00</published>
+      <updated>2016-11-05T22:30:00+01:00</updated>
+      <id>http://localhost:4000/2016/11/05/introduction-to-augeas-in-puppet</id>
+      <content type="html" xml:base="http://localhost:4000/2016/11/05/introduction-to-augeas-in-puppet/">&lt;p&gt;Recently I came across an interesting problem. I had to install kernel
+from branch 3.10 on CentOS6 and there was a need to update &lt;code class=&quot;highlighter-rouge&quot;&gt;grub.conf&lt;/code&gt; - change default kernel plus add boot option.
+Both mentioned operation had to be done in Puppet 3.7 (Augeas are of course also available in the higher version of Puppet). Sounds easy right? &lt;!--more--&gt; 
+In the traditional approach (I saw it in many companies) I would probably
+create another template but I was wondering if there is a way to do it in a
+more elegant and universal way. Of course we can create another template
+and do not think about that but what if we actually do not know what we can expect
+in &lt;code class=&quot;highlighter-rouge&quot;&gt;grub.conf&lt;/code&gt;. Serving &lt;code class=&quot;highlighter-rouge&quot;&gt;grub.conf&lt;/code&gt; as a template can have bunch of other
+implication - dealing with updates, mixed versions of kernels ect.
+In other words another thing we would need to maintain and keep an eye on.
+Actually wy we should provide another template if we only want to add single value
+to lets say &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl.conf&lt;/code&gt;?&lt;/p&gt;
+
+&lt;p&gt;To deal with it we can execute some nasty shell command (sed,awk - you name it)
+or use more sophisticated interface to configuration files - &lt;a href=&quot;http://augeas.net/&quot;&gt;Augeas&lt;/a&gt;.
+Augeas is actually a library written in C. This library provides us an interface which treads
+configuration file as an tree. Additionally we can dynamically change every single element of this tree.
+Augeas is not a new solution and provides bindings for most of popular programming languages (Python,Ruby).
+It’s not a surprise it;s also available in Puppet by default.&lt;/p&gt;
+
+&lt;p&gt;If I want to add some value to &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl.conf&lt;/code&gt; I can do this like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;augeas&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;sysctl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/files/etc/sysctl.conf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;changes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'set kernel.keys.root_maxkeys 1000000'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We can execute it many times. Required entry will be added only once.
+From what I noticed this is a simplified way how we can call Augeas in puppet.&lt;/p&gt;
+
+&lt;p&gt;For some more sophisticated configuration files there are specialized interfaces.
+In puppet we can access them by specifying something what is called &lt;code class=&quot;highlighter-rouge&quot;&gt;lens&lt;/code&gt;.
+I did not check how in works under the hood in puppet but I suspect the puppet
+select lens automatically if we do not specify any.
+Below is an example how we can make changes in &lt;code class=&quot;highlighter-rouge&quot;&gt;grub.conf&lt;/code&gt; (real world example I use in the puppet):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;augeas&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'grub_conf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;incl&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/boot/grub/grub.conf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lens&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'grub.lns'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;changes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'set default 0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'setm  title[1]/kernel swapaccount 1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'rm  title[1]/kernel/quiet'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'rm  title[1]/kernel/rhgb'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'kernel-lt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;Lets go through it line by line:&lt;/dt&gt;
+  &lt;dd&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inc&lt;/code&gt; - specify what configuration file we would like to change
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lens&lt;/code&gt; - specify the name of the lens we would like to use&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;changes&lt;/code&gt; - defines group or single modification we would like to make&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/dd&gt;
+  &lt;dt&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;changes&lt;/code&gt; section support operators like:&lt;/dt&gt;
+  &lt;dd&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;set&lt;/code&gt; - sets required field to specified value,    &lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;set default 0&lt;/code&gt; produces &lt;code class=&quot;highlighter-rouge&quot;&gt;default=0&lt;/code&gt; in the configuration file
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;setm&lt;/code&gt; - adds value to line which matches to (&lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; stands for multi I guess)&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rm&lt;/code&gt; removes value from line which matches to&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;You probably will ask - “how do I know how line I desire to change should be presented to augeas”.
+To see how defined config file looks like when Augeas converts it to tree you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;augtool&lt;/code&gt;.
+It should be available in the standard CentOS repo (it’s also available on the OSX via Brew)
+It’s a command line interface for Augeas.&lt;/p&gt;
+
+&lt;h5 id=&quot;see-an-example-below&quot;&gt;See an example below:&lt;/h5&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[root@localhost ~]# augtool ls /files/boot/grub/grub.conf
+#comment[1] = grub.conf generated by anaconda
+#comment[2] = Note that you do not have to rerun grub after making changes to this file
+#comment[3] = NOTICE:  You have a /boot partition.  This means that
+#comment[4] = all kernel and initrd paths are relative to /boot/, eg.
+#comment[5] = root (hd0,0)
+#comment[6] = kernel /vmlinuz-version ro root=/dev/mapper/VolGroup-lv_root
+#comment[7] = initrd /initrd-[generic-]version.img
+#comment[8] = boot=/dev/sda
+default = 0
+timeout = 5
+splashimage = (hd0,0)/grub/splash.xpm.gz
+hiddenmenu = (none)
+title[1]/ = CentOS (3.10.x86_64)
+title[2]/ = CentOS 6 (2.6.32-504.8.1.el6.x86_64)
+[root@localhost ~]#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Some folks also figured out that Augeas in Puppet can be integrated as &lt;code class=&quot;highlighter-rouge&quot;&gt;providers&lt;/code&gt; to create even more user friendly interface.
+You can read more about that here &lt;a href=&quot;http://augeasproviders.com/&quot;&gt;http://augeasproviders.com/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;–
+Robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Automation" />
+      
+
+      
+        <category term="Provisioning" />
+      
+        <category term="Automation" />
+      
+        <category term="Puppet" />
+      
+
+      
+        <summary type="html">Recently I came across an interesting problem. I had to install kernel from branch 3.10 on CentOS6 and there was a need to update grub.conf - change default kernel plus add boot option. Both mentioned operation had to be done in Puppet 3.7 (Augeas are of course also available in the higher version of Puppet). Sounds easy right?</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">How to pass variable to Jinja template in Salt</title>
+      
+      <link href="http://localhost:4000/2015/11/03/pass-variables-to-jinja-template-in-salt/" rel="alternate" type="text/html" title="How to pass variable to Jinja template in Salt" />
+      <published>2015-11-03T21:00:00+01:00</published>
+      <updated>2015-11-03T21:00:00+01:00</updated>
+      <id>http://localhost:4000/2015/11/03/pass-variables-to-jinja-template-in-salt</id>
+      <content type="html" xml:base="http://localhost:4000/2015/11/03/pass-variables-to-jinja-template-in-salt/">&lt;p&gt;Yesterday I faced quite interesting problem.
+In my SLS definition I was iterating over some hash of hashes and wanted to pass to Jinja template
+hash, which was present in current iteration. &lt;!--more--&gt;
+To make it more clear let show you the problem in the code:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;pi&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;for vhost in pillar&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;vhosts'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;/etc/httpd/conf.d/{{ vhost.name }}.conf&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;file.managed&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jinja&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;salt://httpd/files/vhost/vhost_template.conf.jinja&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s&quot;&gt;apache&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;s&quot;&gt;apache&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s&quot;&gt;644&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pkg&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;httpd&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;endfor %&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I simple wanted to use variable &lt;em&gt;vhost&lt;/em&gt; in my template.
+Variable &lt;em&gt;vhost&lt;/em&gt; is nothing more than just a hash with parameters for each vhost.
+We can solve this problem by using &lt;em&gt;context&lt;/em&gt; in &lt;em&gt;salt&lt;/em&gt; definition.
+Here is the final version of my sls snippet (aka solution):&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;pi&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;for vhost in pillar&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;vhosts'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;/etc/httpd/conf.d/{{ vhost.name }}.conf&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;file.managed&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jinja&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;salt://httpd/files/vhost/vhost_template.conf.jinja&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s&quot;&gt;apache&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;s&quot;&gt;apache&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s&quot;&gt;644&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pkg&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;httpd&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;# set up context for template&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;vhost&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;vhost&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# it makes vhost hash available inside&lt;/span&gt;
+                           &lt;span class=&quot;c1&quot;&gt;# Jinja template under the name vhost&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;endfor %&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Of course you can pass as many variables as you want via the context.&lt;/p&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="Salt" />
+      
+
+      
+        <summary type="html">Yesterday I faced quite interesting problem. In my SLS definition I was iterating over some hash of hashes and wanted to pass to Jinja template hash, which was present in current iteration.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Add new key to APT AKA tell APT to trust given key</title>
+      
+      <link href="http://localhost:4000/2015/04/30/add-new-key-to-apt/" rel="alternate" type="text/html" title="Add new key to APT AKA tell APT to trust given key" />
+      <published>2015-04-30T08:00:03+02:00</published>
+      <updated>2015-04-30T08:00:03+02:00</updated>
+      <id>http://localhost:4000/2015/04/30/add-new-key-to-apt</id>
+      <content type="html" xml:base="http://localhost:4000/2015/04/30/add-new-key-to-apt/">&lt;p&gt;One of my desktop box I recently got this message when I wanted to update it via &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; :&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fetched 1448 B in 8s (180 B/s)
+Reading package lists... Done
+W: An error occurred during the signature verification. The repository is not updated and the previous index files will be used.
+GPG error: http://xxxxxxx ./ Release: The following signatures couldn't be verified because
+the public key is not available: NO_PUBKEY 0000000000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Solution for it is very straight forward but lets write it down here since I always forgot how to do this.
+Here it is:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gpg --keyserver subkeys.pgp.net --recv-keys keyId
+gpg -a --export keyId | sudo apt-key add -
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Of course you will need to replace &lt;code class=&quot;highlighter-rouge&quot;&gt;keyId&lt;/code&gt; with a real GPG key which is missing/uknown to APT.&lt;/p&gt;
+
+&lt;p&gt;Additiona resources - &lt;a href=&quot;https://wiki.debian.org/SecureApt&quot;&gt;SecureApt Debian wiki page&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="Linux" />
+      
+
+      
+        <summary type="html">One of my desktop box I recently got this message when I wanted to update it via apt : Fetched 1448 B in 8s (180 B/s) Reading package lists... Done W: An error occurred during the signature verification. The repository is not updated and the previous index files will be used. GPG error: http://xxxxxxx ./ Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 0000000000</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Why you should not use kill -9</title>
+      
+      <link href="http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill-9/" rel="alternate" type="text/html" title="Why you should not use kill -9" />
+      <published>2015-03-19T19:46:03+01:00</published>
+      <updated>2015-03-19T19:46:03+01:00</updated>
+      <id>http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill--9</id>
+      <content type="html" xml:base="http://localhost:4000/2015/03/19/why-you-shoudnt-use-kill-9/">&lt;p&gt;I recenty found this advice given by &lt;em&gt;Randal Schwartz&lt;/em&gt;.
+I think most of programmers got some idea who he is.
+Anyway if you have not had to touch Perl here is the link to &lt;a href=&quot;https://en.wikipedia.org/wiki/Randal_L._Schwartz&quot;&gt;wiki page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is the advice from Randal:&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;No no no. Don't use kill -9.    
+It doesn't give the process a chance to cleanly:    
+1) shut down socket connections    
+2) clean up temp files    
+3) inform its children that it is going away    
+4) reset its terminal characteristics    
+and so on and so on and so on.    
+Generally, send 15, and wait a second or two, and if that doesn't work, send 2, and if     
+that doesn't work, send 1. If that doesn't, REMOVE THE BINARY because the program is    
+badly behaved!    
+Don't use kill -9. Don't bring out the combine harvester just to tidy up the flower pot.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In a short:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;15&lt;/em&gt; is &lt;em&gt;SIGTERM&lt;/em&gt; (terminate),&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;2&lt;/em&gt; is &lt;em&gt;SIGINT&lt;/em&gt; (interrupt, ctrl-c),&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;1&lt;/em&gt; is &lt;em&gt;SIGHUP&lt;/em&gt; (terminal hangup, often overloaded to keep a process running but reload the config)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For those who would like to have full overview to all availabe signals here is a snippet from &lt;code class=&quot;highlighter-rouge&quot;&gt;signal.h&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define SIGHUP           1
+#define SIGINT           2
+#define SIGQUIT          3
+#define SIGILL           4
+#define SIGTRAP          5
+#define SIGABRT          6
+#define SIGIOT           6
+#define SIGBUS           7
+#define SIGFPE           8
+#define SIGKILL          9
+#define SIGUSR1         10
+#define SIGSEGV         11
+#define SIGUSR2         12
+#define SIGPIPE         13
+#define SIGALRM         14
+#define SIGTERM         15
+#define SIGSTKFLT       16
+#define SIGCHLD         17
+#define SIGCONT         18
+#define SIGSTOP         19
+#define SIGTSTP         20
+#define SIGTTIN         21
+#define SIGTTOU         22
+#define SIGURG          23
+#define SIGXCPU         24
+#define SIGXFSZ         25
+#define SIGVTALRM       26
+#define SIGPROF         27
+#define SIGWINCH        28
+#define SIGIO           29
+#define SIGPOLL         SIGIO&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="Linux" />
+      
+
+      
+        <summary type="html">I recenty found this advice given by Randal Schwartz. I think most of programmers got some idea who he is. Anyway if you have not had to touch Perl here is the link to wiki page. Here is the advice from Randal:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Temporary Disabling Bash History</title>
+      
+      <link href="http://localhost:4000/2014/11/27/temporary-disabling-bash-history/" rel="alternate" type="text/html" title="Temporary Disabling Bash History" />
+      <published>2014-11-27T00:00:00+01:00</published>
+      <updated>2014-11-27T00:00:00+01:00</updated>
+      <id>http://localhost:4000/2014/11/27/temporary-disabling-bash-history</id>
+      <content type="html" xml:base="http://localhost:4000/2014/11/27/temporary-disabling-bash-history/">&lt;p&gt;How to do it ? It’s actually very simple.
+You can achieve this by &lt;code class=&quot;highlighter-rouge&quot;&gt;unset HISTFILE&lt;/code&gt;. Of course in such case we only disable history 
+for current session. 
+What if we want to selectively do not put some commands into bash history ? 
+&lt;!--more--&gt;
+We can do it via &lt;code class=&quot;highlighter-rouge&quot;&gt;HISTCONTROL&lt;/code&gt; variable. From Bash man page:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;HISTCONTROL
+    A colon-separated list of values controlling how commands are saved on the history list.    
+    If the list of values includes ignorespace, lines which begin with a space character are     
+    not saved  in the  history  list. A value of ignoredups causes lines matching the previous     
+    history entry to not be saved. A value of *ignoreboth* is shorthand for *ignorespace* and     
+    *ignoredups*. A value of erasedups causes all previous lines matching the current line to 
+    be removed from the history list before that line is saved. Any value not in the above 
+    list is ignored. If  HISTCONTROL is unset, or does not include a valid value, all lines 
+    read by the shell parser are saved on the history list, subject to the value of HISTIGNORE.
+    The second and subsequent lines of a multi-line compound command are not tested, and are 
+    added to the history regardless of the value of HISTCONTROL.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In my case I always use &lt;code class=&quot;highlighter-rouge&quot;&gt;export HISTCONTROL=ignoreboth:erasedups&lt;/code&gt; and add it to &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; if necessary.
+After that whenever we want to exclude specific command from storing it in the bash history we call it like 
+this &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;space&amp;gt;mysql -u xxxx -pxxxxx&lt;/code&gt;. Remember about space in front of command.&lt;/p&gt;
+
+&lt;p&gt;From what I see on Ubuntu 14.04 &lt;code class=&quot;highlighter-rouge&quot;&gt;HISTCONTROL&lt;/code&gt; is set to value &lt;code class=&quot;highlighter-rouge&quot;&gt;ignoreboth&lt;/code&gt; by default.&lt;/p&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="bash" />
+      
+
+      
+        <summary type="html">How to do it ? It’s actually very simple. You can achieve this by unset HISTFILE. Of course in such case we only disable history for current session. What if we want to selectively do not put some commands into bash history ?</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Add timestamp to Bash history</title>
+      
+      <link href="http://localhost:4000/2014/07/01/add-timestamp-to-bash-history/" rel="alternate" type="text/html" title="Add timestamp to Bash history" />
+      <published>2014-07-01T08:30:46+02:00</published>
+      <updated>2014-07-01T08:30:46+02:00</updated>
+      <id>http://localhost:4000/2014/07/01/add-timestamp-to-bash-history</id>
+      <content type="html" xml:base="http://localhost:4000/2014/07/01/add-timestamp-to-bash-history/">&lt;p&gt;Sometimes there is a need to add timestamp to bash history.
+At my work I found it quite useful especially when some other developers 
+got access to the same box or when you simple want to have an idea when command from history was executed.  
+This is how we can achieve this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'export HISTTIMEFORMAT=&quot;%d.%m.%y %T&quot;'&lt;/span&gt; &amp;gt;&amp;gt; ~/.profile&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;(or &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt; if you use RHEL based distro) and after that just re-login or reload your profile file.
+Time formatting is exactly the same like for &lt;code class=&quot;highlighter-rouge&quot;&gt;strftime&lt;/code&gt; please check &lt;code class=&quot;highlighter-rouge&quot;&gt;man 3 strftime&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Hint: reloading profile can be done like this:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;. .profile&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;source .profile&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;–   &lt;br /&gt;
+Cheers &lt;br /&gt;
+Robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="bash" />
+      
+
+      
+        <summary type="html">Sometimes there is a need to add timestamp to bash history. At my work I found it quite useful especially when some other developers got access to the same box or when you simple want to have an idea when command from history was executed.   This is how we can achieve this: echo 'export HISTTIMEFORMAT=&quot;%d.%m.%y %T&quot;' &amp;gt;&amp;gt; ~/.profile (or .bash_profile if you use RHEL based distro) and after that just re-login or reload your profile file. Time formatting is exactly the same like for strftime please check man 3 strftime. Hint: reloading profile can be done like this: . .profile or source .profile – Cheers Robert</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">IPtables returns an error : security raw nat mangle filter FAILED</title>
+      
+      <link href="http://localhost:4000/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/" rel="alternate" type="text/html" title="IPtables returns an error : security raw nat mangle filter FAILED" />
+      <published>2014-06-28T12:13:09+02:00</published>
+      <updated>2014-06-28T12:13:09+02:00</updated>
+      <id>http://localhost:4000/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed</id>
+      <content type="html" xml:base="http://localhost:4000/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/">&lt;p&gt;After set up of the “linode” on linode.com I stared configuring the firewall (iptables).
+After writing down all my rules and tried to restart iptables but output like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;service iptables restart
+iptables: Flushing firewall rules:                         &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;  OK  &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+iptables: Setting chains to policy ACCEPT: security raw nat[FAILED]filter
+iptables: Unloading modules:                               &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;  OK  &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+iptables: Applying firewall rules:                         &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;  OK  &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;!--more--&gt;
+&lt;p&gt;After I quick research (google) I found an answer for that:
+&lt;a href=&quot;http://www.hostvirtual.com/kb/6383/IPtables-returns-an-error--security-raw-nat-mangle-filter-FAILED.html&quot;&gt;here is the link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Looks like you need to add this patch to iptables init script:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;$&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;IPTABLES&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;: Setting chains to policy &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$policy&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;: &quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tables&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
++       security&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
++           &lt;span class=&quot;nv&quot;&gt;$IPTABLES&lt;/span&gt; -t filter -P INPUT &lt;span class=&quot;nv&quot;&gt;$policy&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
++               &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$IPTABLES&lt;/span&gt; -t filter -P OUTPUT &lt;span class=&quot;nv&quot;&gt;$policy&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
++               &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$IPTABLES&lt;/span&gt; -t filter -P FORWARD &lt;span class=&quot;nv&quot;&gt;$policy&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
++               &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;let &lt;/span&gt;ret+&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
++           &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+        raw&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$IPTABLES&lt;/span&gt; -t raw -P PREROUTING &lt;span class=&quot;nv&quot;&gt;$policy&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$IPTABLES&lt;/span&gt; -t raw -P OUTPUT &lt;span class=&quot;nv&quot;&gt;$policy&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;let &lt;/span&gt;ret+&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+            &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Looks like this is a know bug in CentOS 6 in virtualiazed env.&lt;/p&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+
+      
+        <summary type="html">After set up of the “linode” on linode.com I stared configuring the firewall (iptables). After writing down all my rules and tried to restart iptables but output like this: $ service iptables restart iptables: Flushing firewall rules: [ OK ] iptables: Setting chains to policy ACCEPT: security raw nat[FAILED]filter iptables: Unloading modules: [ OK ] iptables: Applying firewall rules: [ OK ]</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Hosting migration</title>
+      
+      <link href="http://localhost:4000/2014/06/28/hosting-migration/" rel="alternate" type="text/html" title="Hosting migration" />
+      <published>2014-06-28T11:52:36+02:00</published>
+      <updated>2014-06-28T11:52:36+02:00</updated>
+      <id>http://localhost:4000/2014/06/28/hosting-migration</id>
+      <content type="html" xml:base="http://localhost:4000/2014/06/28/hosting-migration/">&lt;p&gt;I recently noticed I actually spend a lot of money to hosting and server resources Im not using at all. 
+Such a waste. After a small research I decided to move all my Droplets from &lt;a href=&quot;https://www.digitalocean.com/&quot;&gt;DigitalOcean.com&lt;/a&gt; 
+to its competitor &amp;gt; &lt;a href=&quot;https://www.linode.com&quot;&gt;linode.com&lt;/a&gt; . I also hosted 2 sites on a separate hosting - elastichost.com 
+which is also rather expensive. 
+So at the end I sit down and calculated how much resources do I need and for how many resources I actually pay. 
+At the begining I tought that maybe the best solution would be to move everything to dedicated machine at &lt;a href=&quot;ovh.de&quot;&gt;OVH&lt;/a&gt; or 
+maybe &lt;a href=&quot;hetzner.de&quot;&gt;Hetzner&lt;/a&gt; but in both cases this is a cost ~50-70€ per month min. Quite much I think especially when my 
+sites do not have significant traffic. &lt;!--more--&gt;”
+I was definitely searching for something like &lt;strong&gt;digitalocean.com&lt;/strong&gt; (DO).&lt;/p&gt;
+
+&lt;h4 id=&quot;digitalocean-very-reasonable-price-and-offers-a-bunch-of-features-i-was-looking-for-but&quot;&gt;DigitalOcean very reasonable price and offers a bunch of features I was looking for but:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;when somebody tries to flood(DDOS) your droplet you are actually on your own (they do not offer any type of protection). 
+Support in this case also seems to be powerless, no matter if this is a targeted attack or just a ricochet. One of my 
+client got such case and to be honest I was really disappointed when I was not able to get any help from DO Support Team,&lt;/li&gt;
+  &lt;li&gt;when you site/droplet catches some significant traffic DO got poor performance. Yes I know what Im talking about. 
+And Im not talking here about 30Mb/s traffic. I even upgraded my droplet from 2GMEM to 8GMEM it did not help me much I/O 
+was still on a low level (but still DO looks better than most of VPS hosting companies)&lt;/li&gt;
+  &lt;li&gt;it’s a pity they do not offer some more extensive monitoring out of the box&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;####So why Linode:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;for the same price I can get more powerful virtual machine and more disk space&lt;/li&gt;
+  &lt;li&gt;looks like they got better I/O performance (I will try to provide some stats to proof that)&lt;/li&gt;
+  &lt;li&gt;quick and helpful support - dont gent me wrong DO support is also damn quick but Linode support seems to be more tekkie oriented&lt;/li&gt;
+  &lt;li&gt;better monitoring out of the box - “LongView”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In general I dont think DO is bad, I think it’s simple suited for other purposes like test evn or dev env.&lt;/p&gt;
+
+&lt;p&gt;After the migration performance increased significantly. 
+It was visible quite much especially on my Redmine instance and other RoR based apps.&lt;/p&gt;
+
+&lt;p&gt;Peace \o/.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="hosting" />
+      
+
+      
+        <summary type="html">I recently noticed I actually spend a lot of money to hosting and server resources Im not using at all. Such a waste. After a small research I decided to move all my Droplets from DigitalOcean.com to its competitor &amp;gt; linode.com . I also hosted 2 sites on a separate hosting - elastichost.com which is also rather expensive. So at the end I sit down and calculated how much resources do I need and for how many resources I actually pay. At the begining I tought that maybe the best solution would be to move everything to dedicated machine at OVH or maybe Hetzner but in both cases this is a cost ~50-70€ per month min. Quite much I think especially when my sites do not have significant traffic.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Goal for the next 2-3 months</title>
+      
+      <link href="http://localhost:4000/2014/06/28/goal-for-the-next-2-3-months/" rel="alternate" type="text/html" title="Goal for the next 2-3 months" />
+      <published>2014-06-28T11:21:42+02:00</published>
+      <updated>2014-06-28T11:21:42+02:00</updated>
+      <id>http://localhost:4000/2014/06/28/goal-for-the-next-2-3-months</id>
+      <content type="html" xml:base="http://localhost:4000/2014/06/28/goal-for-the-next-2-3-months/">&lt;h2 id=&quot;my-goal-for-the-next-2-or-3-months&quot;&gt;My goal for the next 2 or 3 months:&lt;/h2&gt;
+&lt;p&gt;I recently found &lt;a href=&quot;http://ejohn.org/blog/write-code-every-day/&quot;&gt;this&lt;/a&gt; blog entry over the internet. Lets see how it will go :). 
+In general I think this is quite good idea. Mainly because you adapt to a “routine” of writing a code (if you are not already addicted like mew :D). This is a definietely a good training for your brain. 
+Here is a link to my GitHub profile: https://github.com/robertwe
+So first I need to find a project :). I already contribure a little bit at Jenkins CI project but I would like to create something new.&lt;/p&gt;
+
+&lt;p&gt;Have a great day.&lt;/p&gt;
+
+&lt;p&gt;–
+Regards,
+Robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+
+      
+        <summary type="html">My goal for the next 2 or 3 months: I recently found this blog entry over the internet. Lets see how it will go :). In general I think this is quite good idea. Mainly because you adapt to a “routine” of writing a code (if you are not already addicted like mew :D). This is a definietely a good training for your brain. Here is a link to my GitHub profile: https://github.com/robertwe So first I need to find a project :). I already contribure a little bit at Jenkins CI project but I would like to create something new. Have a great day. – Regards, Robert</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">CentOS6 “host” and “dig” commands are missing</title>
+      
+      <link href="http://localhost:4000/2014/05/20/centos6-host-command-is-missing/" rel="alternate" type="text/html" title="CentOS6 &quot;host&quot; and &quot;dig&quot; commands are missing" />
+      <published>2014-05-20T20:39:37+02:00</published>
+      <updated>2014-05-20T20:39:37+02:00</updated>
+      <id>http://localhost:4000/2014/05/20/centos6-host-command-is-missing</id>
+      <content type="html" xml:base="http://localhost:4000/2014/05/20/centos6-host-command-is-missing/">&lt;p&gt;Recently I configured new machine with CentOS6.5 on the board and it looks like the $&lt;em&gt;host&lt;/em&gt; command was missing.
+Here is a quick solution for that: &lt;!--more--&gt;
+yum install bind-utils&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[robert@swordfish ~] yum install bind-utils
+Loaded plugins: fastestmirror, keys, protectbase
+Loading mirror speeds from cached hostfile
+ * base: centosh2.centos.org
+ * extras: mirror.nsc.liu.se
+ * updates: mirror.nsc.liu.se
+0 packages excluded due to repository protections
+Setting up Install Process
+Resolving Dependencies
+--&amp;gt; Running transaction check
+---&amp;gt; Package bind-utils.x86_64 32:9.8.2-0.23.rc1.el6_5.1 will be installed
+...
+--&amp;gt; Running transaction check
+---&amp;gt; Package bind-libs.x86_64 32:9.8.2-0.23.rc1.el6_5.1 will be installed
+--&amp;gt; Finished Dependency Resolution
+
+Dependencies Resolved
+...
+Install       2 Package(s)
+
+Total download size: 1.0 M
+Installed size: 2.6 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/2): bind-libs-9.8.2-0.23.rc1.el6_5.1.x86_64.rpm                                                           | 879 kB     00:00     
+(2/2): bind-utils-9.8.2-0.23.rc1.el6_5.1.x86_64.rpm                                                          | 182 kB     00:00     
+
+...
+
+Complete!
+[robert@swordfish ~] dig
+
+; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.8.2rc1-RedHat-9.8.2-0.23.rc1.el6_5.1 &amp;lt;&amp;lt;&amp;gt;&amp;gt;
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 53593
+;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;.				IN	NS
+
+;; ANSWER SECTION:
+.			18308	IN	NS	a.root-servers.net.
+.			18308	IN	NS	b.root-servers.net.
+.			18308	IN	NS	c.root-servers.net.
+.			18308	IN	NS	d.root-servers.net.
+.			18308	IN	NS	e.root-servers.net.
+.			18308	IN	NS	f.root-servers.net.
+.			18308	IN	NS	g.root-servers.net.
+.			18308	IN	NS	h.root-servers.net.
+.			18308	IN	NS	i.root-servers.net.
+.			18308	IN	NS	j.root-servers.net.
+.			18308	IN	NS	k.root-servers.net.
+.			18308	IN	NS	l.root-servers.net.
+.			18308	IN	NS	m.root-servers.net.
+
+;; Query time: 4 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue May 20 18:50:16 2014
+;; MSG SIZE  rcvd: 228&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Just to keep it in one place. I always forgot which package provides it.
+If you know where exactly the executable file is placed you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;yum provides&lt;/code&gt; command like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ yum provides /usr/bin/host
+Loaded plugins: fastestmirror
+
+...
+
+32:bind-utils-9.8.2-0.17.rc1.el6_4.6.x86_64 : Utilities for querying DNS name servers
+Repo        : base
+Matched from:
+Filename    : /usr/bin/host
+
+32:bind-utils-9.8.2-0.23.rc1.el6_5.1.x86_64 : Utilities for querying DNS name servers
+Repo        : updates
+Matched from:
+Filename    : /usr/bin/host
+
+32:bind-utils-9.8.2-0.23.rc1.el6_5.1.x86_64 : Utilities for querying DNS name servers
+Repo        : installed
+Matched from:
+Other       : Provides-match: /usr/bin/host
+
+
+$ yum provides /usr/bin/dig
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+...
+32:bind-utils-9.8.2-0.17.rc1.el6_4.6.x86_64 : Utilities for querying DNS name servers
+Repo        : base
+Matched from:
+Filename    : /usr/bin/dig
+
+32:bind-utils-9.8.2-0.23.rc1.el6_5.1.x86_64 : Utilities for querying DNS name servers
+Repo        : updates
+Matched from:
+Filename    : /usr/bin/dig
+
+32:bind-utils-9.8.2-0.23.rc1.el6_5.1.x86_64 : Utilities for querying DNS name servers
+Repo        : installed
+Matched from:
+Other       : Provides-match: /usr/bin/dig&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It will help you to find most of the missing packages.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="CentOS" />
+      
+
+      
+
+      
+        <summary type="html">Recently I configured new machine with CentOS6.5 on the board and it looks like the $host command was missing. Here is a quick solution for that:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Is TDD Dead ?</title>
+      
+      <link href="http://localhost:4000/2014/05/09/is-tdd-dead/" rel="alternate" type="text/html" title="Is TDD Dead ?" />
+      <published>2014-05-09T21:24:39+02:00</published>
+      <updated>2014-05-09T21:24:39+02:00</updated>
+      <id>http://localhost:4000/2014/05/09/is-tdd-dead</id>
+      <content type="html" xml:base="http://localhost:4000/2014/05/09/is-tdd-dead/">&lt;p&gt;Today I watched quite interesting hangout. It was a quick (30min) discussion.
+Attenders:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kent Beck,&lt;/li&gt;
+  &lt;li&gt;Martin Fowler,&lt;/li&gt;
+  &lt;li&gt;David Heinemeier Hansson&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Few days ago @DHH wrote some “controversial” &lt;a href=&quot;http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html&quot;&gt;post&lt;/a&gt; on his blog about TDD and in general presented his point of view to TDD.
+As a result of that we got a huge discussion on the Twitter about TDD. Some people says that every professional should use TDD and and so on. 
+As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organized this hangout.
+ &lt;/p&gt;
+
+&lt;h3 id=&quot;youtube-playlist-parts-from-1-to-6&quot;&gt;Youtube playlist (Parts from 1 to 6)&lt;/h3&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/videoseries?list=PLJb2p0qX8R_qSRhs14CiwKuDuzERXSU8m&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+
+      
+        <summary type="html">Today I watched quite interesting hangout. It was a quick (30min) discussion. Attenders: Kent Beck, Martin Fowler, David Heinemeier Hansson Few days ago @DHH wrote some “controversial” post on his blog about TDD and in general presented his point of view to TDD. As a result of that we got a huge discussion on the Twitter about TDD. Some people says that every professional should use TDD and and so on. As a result of that guys from ThoughtWorks organized this hangout.   Youtube playlist (Parts from 1 to 6)</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Keynote: Architecture the Lost Years by Robert Martin</title>
+      
+      <link href="http://localhost:4000/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/" rel="alternate" type="text/html" title="Keynote: Architecture the Lost Years by Robert Martin" />
+      <published>2014-05-03T23:59:55+02:00</published>
+      <updated>2014-05-03T23:59:55+02:00</updated>
+      <id>http://localhost:4000/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin</id>
+      <content type="html" xml:base="http://localhost:4000/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/">&lt;p&gt;Here is a talk Uncle Bob gave in 2011 at &lt;strong&gt;Ruby Midewest 2011&lt;/strong&gt;. Honestly I back to this talk every two months or so. Also must to add that Im a great fun of &lt;strong&gt;Uncle Bob&lt;/strong&gt; (&lt;a href=&quot;https://twitter.com/unclebobmartin&quot;&gt;@unclebobmartin&lt;/a&gt;) It also contains some notes about MVC, what’s the true purpose of MVC and it was created and so on. Here it is (you need to click on &lt;strong&gt;Read more&lt;/strong&gt; to load the embeded youtube video):&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/WpkDN78P884&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+
+      
+        <summary type="html">Here is a talk Uncle Bob gave in 2011 at Ruby Midewest 2011. Honestly I back to this talk every two months or so. Also must to add that Im a great fun of Uncle Bob (@unclebobmartin) It also contains some notes about MVC, what’s the true purpose of MVC and it was created and so on. Here it is (you need to click on Read more to load the embeded youtube video):</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">For a good start of a working day</title>
+      
+      <link href="http://localhost:4000/2014/05/03/for-a-good-start-of-a-working-day/" rel="alternate" type="text/html" title="For a good start of a working day" />
+      <published>2014-05-03T23:47:04+02:00</published>
+      <updated>2014-05-03T23:47:04+02:00</updated>
+      <id>http://localhost:4000/2014/05/03/for-a-good-start-of-a-working-day</id>
+      <content type="html" xml:base="http://localhost:4000/2014/05/03/for-a-good-start-of-a-working-day/">&lt;h2 id=&quot;have-a-great-day&quot;&gt;Have a great day&lt;/h2&gt;
+
+&lt;iframe src=&quot;//player.vimeo.com/video/75755258&quot; width=&quot;500&quot; height=&quot;281&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;a href=&quot;http://vimeo.com/75755258&quot;&gt;Swedish House Mafia - Greyhound&lt;/a&gt; from &lt;a href=&quot;http://vimeo.com/biglazyrobot&quot;&gt;BLR_VFX&lt;/a&gt; on &lt;a href=&quot;https://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="test" />
+      
+
+      
+
+      
+        <summary type="html">Have a great day Swedish House Mafia - Greyhound from BLR_VFX on Vimeo. –robert</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">first post</title>
+      
+      <link href="http://localhost:4000/2014/05/03/first-post/" rel="alternate" type="text/html" title="first post" />
+      <published>2014-05-03T22:40:03+02:00</published>
+      <updated>2014-05-03T22:40:03+02:00</updated>
+      <id>http://localhost:4000/2014/05/03/first-post</id>
+      <content type="html" xml:base="http://localhost:4000/2014/05/03/first-post/">&lt;h4 id=&quot;lets-write-it-down&quot;&gt;Let’s write it down.&lt;/h4&gt;
+&lt;p&gt;To be honest I don’t remember when I actually started thinking about writing down most the solutions I found over the internet or implemented myself.
+I realized that from time to time I go back to solutions, code snippets or config files I created or modified to fulfill some specific requirements. Good is it I wrote it down somewhere, put on &lt;a href=&quot;https://gist.github.com/robertwe&quot;&gt;Gist&lt;/a&gt; or &lt;a href=&quot;http://pastebin.com/&quot;&gt;Pastebin&lt;/a&gt; but what if I did not ? 
+Let’s say I just configured Nginx as loadbalancer and for example after a year or so I need to make something exactly the same or at last similar. What’s then ? I need to go through the NGINX’s documentation again or start searching over google. Sure in some case I remember exactly how I solved some specific problem but when it was some time ago then …
+This is the reason why I decided to create this simple blog. I hope it wont evolve to any unpredictable way. You can thing about this blog like a about my notebook. If somebody else will find my notes useful/helpful - even better. Let’s make this World better.&lt;/p&gt;
+
+&lt;p&gt;Have a great day.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;P.S As you probably noticed Im not a native speaker, so in case you guys will find some mistakes in my post (probably more than one) please let me know ASAP.&lt;/em&gt;&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;/script&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;RAM&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;vCPU&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Price (€)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;60&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;12G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;120&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;16G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;160&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;12&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;240&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;32G&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;16&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;320&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;our-universe-in-si-units&quot;&gt;Our universe (in SI units):&lt;/h3&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{align*}
+  \frac{\partial\mathcal{D}}{\partial t} \quad &amp; = \quad \nabla\times\mathcal{H},   &amp; \quad \text{(Faraday's law)} \\[5pt]
+  \frac{\partial\mathcal{B}}{\partial t} \quad &amp; = \quad -\nabla\times\mathcal{E},  &amp; \quad \text{(Ampère's circuital law)}   \\[5pt]
+  \nabla\cdot\mathcal{B}                 \quad &amp; = \quad 0,                         &amp; \quad \text{(Gauss's law for magnetism)}   \\[5pt]
+  \nabla\cdot\mathcal{D}                 \quad &amp; = \quad 0.                         &amp; \quad \text{(Coulomb's Law)}
+  \end{align*} %]]&gt;&lt;/script&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\begin{align*}
+  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*} %]]&gt;&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{array}{c|lcr}
+n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \\
+\hline
+1 &amp; 0.24 &amp; 1 &amp; 125 \\
+2 &amp; -1 &amp; 189 &amp; -8 \\
+3 &amp; -20 &amp; 2000 &amp; 1+10i
+\end{array} %]]&gt;&lt;/script&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Widget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;respond_to&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# show.html.erb&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;json: &lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interfaces&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;io&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;os&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//PipeExample function&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PipeExample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interfaces&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fmt&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;io&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;os&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// Copy data from std in to std out&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReadSeeker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Writer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MultiWriter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Seek&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CopyBuffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;–robert&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        <category term="First Post" />
+      
+
+      
+        <summary type="html">Let’s write it down. To be honest I don’t remember when I actually started thinking about writing down most the solutions I found over the internet or implemented myself. I realized that from time to time I go back to solutions, code snippets or config files I created or modified to fulfill some specific requirements. Good is it I wrote it down somewhere, put on Gist or Pastebin but what if I did not ? Let’s say I just configured Nginx as loadbalancer and for example after a year or so I need to make something exactly the same or at last similar. What’s then ? I need to go through the NGINX’s documentation again or start searching over google. Sure in some case I remember exactly how I solved some specific problem but when it was some time ago then … This is the reason why I decided to create this simple blog. I hope it wont evolve to any unpredictable way. You can thing about this blog like a about my notebook. If somebody else will find my notes useful/helpful - even better. Let’s make this World better. Have a great day. P.S As you probably noticed Im not a native speaker, so in case you guys will find some mistakes in my post (probably more than one) please let me know ASAP. RAM vCPU Price (€) 1G 1 5 2G 2 10 4G 4 30 8G 6 60 12G 8 120 16G 10 160 24G 12 240 32G 16 320 Our universe (in SI units): def show @widget = Widget(params[:id]) respond_to do |format| format.html # show.html.erb format.json { render json: @widget } end end package interfaces import ( &quot;io&quot; &quot;os&quot; ) //PipeExample function func PipeExample() error { r, w := io.Pipe() go func() { w.Write([]byte(&quot;test\n&quot;)) w.Close() }() if _, err := io.Copy(os.Stdout, r); err != nil { return err } return nil } package interfaces import ( &quot;fmt&quot; &quot;io&quot; &quot;os&quot; ) // Copy data from std in to std out func Copy(in io.ReadSeeker, out io.Writer) error { w := io.MultiWriter(out, os.Stdout) if _, err := io.Copy(w, in); err != nil { return err } in.Seek(0, 0) buf := make([]byte, 64) if _, err := io.CopyBuffer(w, in, buf); err != nil { return err } fmt.Println() return nil } –robert</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+</feed>
