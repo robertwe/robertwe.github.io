@@ -33,6 +33,7 @@ custom:
       short_name : robertwe
 
 theme: jekyll-whiteglass
+remote_theme: jekyll-whiteglass
 
 markdown: kramdown
 highlighter: rouge
