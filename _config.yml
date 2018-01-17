@@ -3,8 +3,8 @@ email: robert.weclawski@mykolab.com
 excerpt_separator: "<!--more-->"
 description: > 
 
-baseurl: ""
-url: ""
+baseurl: "/"
+url: "https://roberts-notes.blog"
 twitter_username: rweclawski
 github_username:  robertwe
 
@@ -32,7 +32,7 @@ custom:
     disqus :
       short_name : robertwe
 
-theme: jekyll-theme-slate
+theme: jekyll-whiteglass
 
 markdown: kramdown
 highlighter: rouge
