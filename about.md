@@ -1,11 +1,9 @@
 ---
 layout: page
-title: "[ About ]"
-description: ""
-group: navigation
-permalink: /about.html
+comments: false
+title: "About"
+permalink: /about/
 ---
-{% include JB/setup %}
 
 Hey, my name is Robert and Im a husband, father of three and software developer.
 I create amazing websites and web applications for clients from all around the World;
@@ -24,7 +22,6 @@ Additionally [_Jenkins_](https://jenkins-ci.org/), [_SaltStack_](https://saltsta
     </a>
 </p>
 
-[My Public PGP Key](/files/robert.weclawski@mykolab.com (0x47743A17) pub.asc.txt)    
 `Email: robert.weclawski@mykolab.com`     
 `KeyID: 0x47743A17`    
 `Fingerprint: E967 8AE5 7D98 965F A0DE 66CC 9469 2712 4774 3A17`    

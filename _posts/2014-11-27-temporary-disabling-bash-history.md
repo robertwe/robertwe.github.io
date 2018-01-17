@@ -5,7 +5,6 @@ description: ""
 category: 
 tags: [bash]
 ---
-{% include JB/setup %}
 How to do it ? It's actually very simple.
 You can achieve this by `unset HISTFILE`. Of course in such case we only disable history 
 for current session. 
