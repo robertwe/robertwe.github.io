@@ -1,13 +1,24 @@
-{% assign feed_path = "/feed.xml" %}
-{% if site.feed and site.feed.path %}
-  {% assign feed_path = site.feed.path %}
-{% endif %}
-<div class="misc-content">
-    <div class="social">
-        <ul class="list-linear">
-            <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="{{ site.author.twitter }}" data-lang="en">Tweet</a></div></li>
-            <li><div class="twitter-follow"><a href="https://twitter.com/{{ site.author.twitter }}" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
-        </ul>
-    </div>
+{% if site.github_username %}
+  <div class="footer">
+    <a href="https://github.com/{{ site.github_username }}">
+      <i class="fa fa-github"></i> GitHub
+    </a>
 </div>
+{% endif %}
+{% if site.twitter_username %}
+<div class="footer">
+    <a href="https://twitter.com/{{ site.twitter_username }}">
+      <i class="fa fa-twitter"></i> Twitter
+    </a>
+  </div>
+{% endif %}
+{% if site.linkedin_username %}
+<div class="footer">
+    <a href="https://linkedin.com/in/{{ site.linkedin_username }}">
+      <i class="fa fa-linkedin"></i> LinkedIn
+    </a>
+  </div>
+{% endif %}
+<span class="footer">
 &copy; {{ site.author }} - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="{{ feed_path | absolute_url }}">RSS</a>
+</span>
