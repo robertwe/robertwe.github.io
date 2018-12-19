@@ -5,8 +5,8 @@ title: "About"
 permalink: /about/
 ---
 
-Hey, my name is Robert and Im a husband, father of three and software developer.
-I create amazing websites and web applications for clients from all around the World;
+Hey, my name is Robert and I'm a husband, father of three and a software developer.
+I create amazing websites and web applications for clients from all around the World.
 At the same time I also love to automate things.
 At my work I follow the path of Software Craftsman (at least I do my best). Who is that you can ask ?
 In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
