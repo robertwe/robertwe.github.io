@@ -5,13 +5,34 @@ title: "About"
 permalink: /about/
 ---
 
-Hey, my name is Robert and I'm a husband, father of three and a software developer.
-I create amazing websites and web applications for clients from all around the World.
-At the same time I also love to automate things.
-At my work I follow the path of Software Craftsman (at least I do my best). Who is that you can ask ?
-In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
-At my work I use various technology mainly _GoLang_, _PHP_ (Symfony2), _Ruby_ (Ruby On Rails).
-Additionally [_Jenkins_](https://jenkins-ci.org/), [_SaltStack_](https://saltstack.com/), [_Terraform_](https://www.terraform.io/) and [_Python_](https://www.python.org/) help me with automate almost every aspect of the software development cycle.    
+Hi there, my name is Robert and I'm a husband, father of three and a software developer since last 12 years. At the same time I also love to automate things.    
+At my work I follow the path of the Software Craftsman (at least I do my best).    
+Who is that you can ask ? In my opinion _Micah Martin_ desribed it perfectly in [this post](http://blog.8thlight.com/micah-martin/2008/09/21/definition-of-software-craftsman.html).     
+I also have been doing/promoting DevOps culture since 2011. Since that I also work remotely.    
+At the beginning of my career I was working as a developer later on as an operation.    
+To be honest since that Im trying to search for a job/project where I would be able to connect    
+my both passions (programming and systems).    
+
+From my day-to-day job I'm using:    
+
+  - PHP ([_Laravel_]() and [_Symfony_]()),
+  - [_Python_](https://www.python.org/) (Flask, in the past also [_Twisted_](https://twistedmatrix.com/trac/)),
+  - JavaScript([_Node.js_](https://nodejs.org/en/) + various of JS libraries - recently I started     
+    using Jest lib for writing tests),
+  - [_Terraform_](https://www.terraform.io/),
+  - [_Packer_](https://packer.io/),
+  - [_SaltStack_](https://saltstack.com/),
+  - [_Jenkins_](https://jenkins-ci.org/) (to automate processes, create pipelines but I also to automate Jenkins     
+    itself - DSL, Pipeline DSL, Jenkins startup script),
+  - [_Docker_](https://www.docker.com/),
+  - [_Serverless_](https://serverless.com/)
+
+Recently I have becoming more and more familiarly with GoLang and Kubernetes.     
+Both actually makes me really impressive since I really not overcomplicated solutions.    
+Ansible is also on my list of provisioners to explore(since RedHat bought them).     
+
+I also have around 3 years of hands on experience with _AWS_ and    
+services like Lambda functions, EC2, CloudWatch, ElasticCache, Route53, S3.    
 
 <div class="github-card" data-github="robertwe" data-width="400" data-height="150"></div>
 <script src="https://lab.lepture.com/github-cards/widget.js"></script>
