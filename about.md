@@ -17,7 +17,7 @@ From my day-to-day job I'm using:
 
   - [_Python_](https://www.python.org/) (Flask, in the past also [_Twisted_](https://twistedmatrix.com/trac/)) - I have been using it     
     in a past very heavily, currently I use it manily for writting handly scripts which are executed via AWS Lambda(mostly),
-  - [_Go Lang_](https://golang.org/) (I have been using is since a while mostly for backend APIs and cmd line tools     
+  - [_Go Lang_](https://golang.org/) (I have been using it since a while mostly for backend APIs and cmd line tools     
     and I need to admit that so far this is my favourite programming language. Relatively I'm in this here but very extensively improving here),
   - JavaScript and Node.js([_Node.js_](https://nodejs.org/en/) + various of JS libraries - JS is a language I have been using     
     since I actually remember but I had never focus on it as much as I should. In a last few years it grown significantly (because of Node.js) 
