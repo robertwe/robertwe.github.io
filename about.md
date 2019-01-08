@@ -15,8 +15,8 @@ my passions.
 
 From my day-to-day job I'm using:    
 
-  - [_Python_](https://www.python.org/) (Flask, in the past also [_Twisted_](https://twistedmatrix.com/trac/)) - I have been using it     
-    in a past very heavily, currently I use it manily for writting handly scripts which are executed via AWS Lambda(mostly),
+  - [_Python_](https://www.python.org/) (Flask, in the past also [_Twisted_](https://twistedmatrix.com/trac/)) - I have been using in a past very heavily,     
+    currently I use it manily for writting handly scripts which are executed via AWS Lambda(mostly),
   - [_Go Lang_](https://golang.org/) (I have been using it since a while mostly for backend APIs and cmd line tools     
     and I need to admit that so far this is my favourite programming language. Relatively I'm in this here but very extensively improving here),
   - JavaScript and Node.js([_Node.js_](https://nodejs.org/en/) + various of JS libraries - JS is a language I have been using     
@@ -31,7 +31,7 @@ From my day-to-day job I'm using:
   - [_Docker_](https://www.docker.com/),
   - [_Kubernetes_](https://kubernetes.io/) - I have never used it on a real production environemnt and but I would love to     
     see how it works on a real battlefield, anyway I still must to learn a lot in this area,
-  - [_Serverless_](https://serverless.com/)
+  - [_Serverless_](https://serverless.com/) - I have been using it mainly for preparing AWS Lambdas (Python || node.js)
 
 Since early 2018 I have been playing heavily with GoLang and since a while also with the Kubernetes.     
 Ansible is also on my list of provisioners to explore(since RedHat bought them).     
