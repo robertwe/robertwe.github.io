@@ -31,7 +31,7 @@ From my day-to-day job I'm using:
   - [_Docker_](https://www.docker.com/),
   - [_Kubernetes_](https://kubernetes.io/) - I have never used it on a real production environemnt and but I would love to     
     see how it works on a real battlefield, anyway I still must to learn a lot in this area,
-  - [_Serverless_](https://serverless.com/) - I have been using it mainly for preparing AWS Lambdas (Python || node.js)
+  - [_Serverless_](https://serverless.com/) - I have been using it mainly for preparing AWS Lambdas (Python or node.js)
 
 Since early 2018 I have been playing heavily with GoLang and since a while also with the Kubernetes.     
 Ansible is also on my list of provisioners to explore(since RedHat bought them).     
