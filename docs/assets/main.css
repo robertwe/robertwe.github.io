@@ -503,3 +503,22 @@ span.footer {
 .highlight .k {
   color: #204a87;
   font-weight: bold; }
+
+.post-title {
+  font-size: 30px;
+  letter-spacing: -1px;
+  line-height: 1; }
+  @media screen and (max-width: 800px) {
+    .post-title {
+      font-size: 36px; } }
+
+.post-list {
+  margin-left: 0;
+  list-style: none; }
+  .post-list .post-link:hover {
+    text-decoration: none; }
+  .post-list > li {
+    margin-bottom: 30px; }
+    .post-list > li:not(:first-child) {
+      border-top: 4px solid #e8e8e8;
+      padding-top: 45px; }

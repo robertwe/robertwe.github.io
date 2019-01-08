@@ -80,3 +80,30 @@ span.footer {
     color: #204a87;
     font-weight: bold;
 }
+
+.post-title {
+    font-size: 30px;
+    letter-spacing: -1px;
+    line-height: 1;
+  
+    @include media-query($on-laptop) {
+        font-size: 36px;
+    }
+}
+.post-list {
+    margin-left: 0;
+    list-style: none;
+  
+    .post-link:hover {
+      text-decoration: none;
+    }
+  
+    > li {
+      margin-bottom: $spacing-unit * 1;
+  
+      &:not(:first-child) {
+        border-top: 4px solid $grey-color-light;
+        padding-top: $spacing-unit * 1.5;
+      }
+    }
+  }
