@@ -29,8 +29,8 @@ From my day-to-day job I'm using:
   - [_Jenkins_](https://jenkins-ci.org/) (to automate processes, create pipelines but I also to automate Jenkins     
     itself - DSL, Pipeline DSL, Jenkins startup script),
   - [_Docker_](https://www.docker.com/),
-  - [_Kubernetes_](https://kubernetes.io/) - I have never used it on a real production environemnt and but I would love to     
-    see how it works on a real battlefield, anyway I still must to learn a lot in this area,
+  - [_Kubernetes_](https://kubernetes.io/) - I have never used it on a real production environemnt but I would love to     
+    see how it works on a real battlefield, anyway I still must to learn a lot in this area (btw: this bof is served from K8S cluster),
   - [_Serverless_](https://serverless.com/) - I have been using it mainly for preparing AWS Lambdas (Python or node.js)
 
 Since early 2018 I have been playing heavily with GoLang and since a while also with the Kubernetes.     
