@@ -5,7 +5,7 @@
   
   <link href="https://roberts-notes.blog/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://roberts-notes.blog/" rel="alternate" type="text/html" />
-  <updated>2019-05-05T22:23:52+02:00</updated>
+  <updated>2019-05-05T22:27:42+02:00</updated>
   <id>https://roberts-notes.blog//</id>
 
   
@@ -24,7 +24,9 @@
       
       <title type="html">Quick introduction to Augeas in Puppet</title>
       
+      
       <link href="https://roberts-notes.blog/2016/11/05/introduction-to-augeas-in-puppet/" rel="alternate" type="text/html" title="Quick introduction to Augeas in Puppet" />
+      
       <published>2016-11-05T22:30:00+01:00</published>
       <updated>2016-11-05T22:30:00+01:00</updated>
       <id>https://roberts-notes.blog/2016/11/05/introduction-to-augeas-in-puppet</id>
@@ -171,7 +173,9 @@ Robert&lt;/p&gt;</content>
       
       <title type="html">How to pass variable to Jinja template in Salt</title>
       
+      
       <link href="https://roberts-notes.blog/2015/11/03/pass-variables-to-jinja-template-in-salt/" rel="alternate" type="text/html" title="How to pass variable to Jinja template in Salt" />
+      
       <published>2015-11-03T21:00:00+01:00</published>
       <updated>2015-11-03T21:00:00+01:00</updated>
       <id>https://roberts-notes.blog/2015/11/03/pass-variables-to-jinja-template-in-salt</id>
@@ -249,7 +253,9 @@ Here is the final version of my sls snippet (aka solution):&lt;/p&gt;
       
       <title type="html">Add new key to APT AKA tell APT to trust given key</title>
       
+      
       <link href="https://roberts-notes.blog/2015/04/30/add-new-key-to-apt/" rel="alternate" type="text/html" title="Add new key to APT AKA tell APT to trust given key" />
+      
       <published>2015-04-30T08:00:03+02:00</published>
       <updated>2015-04-30T08:00:03+02:00</updated>
       <id>https://roberts-notes.blog/2015/04/30/add-new-key-to-apt</id>
@@ -306,7 +312,9 @@ gpg -a --export keyId | sudo apt-key add -
       
       <title type="html">Why you should not use kill -9</title>
       
+      
       <link href="https://roberts-notes.blog/2015/03/19/why-you-shoudnt-use-kill-9/" rel="alternate" type="text/html" title="Why you should not use kill -9" />
+      
       <published>2015-03-19T19:46:03+01:00</published>
       <updated>2015-03-19T19:46:03+01:00</updated>
       <id>https://roberts-notes.blog/2015/03/19/why-you-shoudnt-use-kill--9</id>
@@ -404,7 +412,9 @@ Don't use kill -9. Don't bring out the combine harvester just to tidy up the flo
       
       <title type="html">Temporary Disabling Bash History</title>
       
+      
       <link href="https://roberts-notes.blog/2014/11/27/temporary-disabling-bash-history/" rel="alternate" type="text/html" title="Temporary Disabling Bash History" />
+      
       <published>2014-11-27T00:00:00+01:00</published>
       <updated>2014-11-27T00:00:00+01:00</updated>
       <id>https://roberts-notes.blog/2014/11/27/temporary-disabling-bash-history</id>
@@ -465,7 +475,9 @@ this &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;space&amp;gt;mysql 
       
       <title type="html">Add timestamp to Bash history</title>
       
+      
       <link href="https://roberts-notes.blog/2014/07/01/add-timestamp-to-bash-history/" rel="alternate" type="text/html" title="Add timestamp to Bash history" />
+      
       <published>2014-07-01T08:30:46+02:00</published>
       <updated>2014-07-01T08:30:46+02:00</updated>
       <id>https://roberts-notes.blog/2014/07/01/add-timestamp-to-bash-history</id>
@@ -514,7 +526,9 @@ Robert&lt;/p&gt;</content>
       
       <title type="html">IPtables returns an error : security raw nat mangle filter FAILED</title>
       
+      
       <link href="https://roberts-notes.blog/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed/" rel="alternate" type="text/html" title="IPtables returns an error : security raw nat mangle filter FAILED" />
+      
       <published>2014-06-28T12:13:09+02:00</published>
       <updated>2014-06-28T12:13:09+02:00</updated>
       <id>https://roberts-notes.blog/2014/06/28/iptables-returns-an-error-security-raw-nat-mangle-filter-failed</id>
@@ -580,7 +594,9 @@ iptables: Applying firewall rules:                         &lt;span class=&quot;
       
       <title type="html">Hosting migration</title>
       
+      
       <link href="https://roberts-notes.blog/2014/06/28/hosting-migration/" rel="alternate" type="text/html" title="Hosting migration" />
+      
       <published>2014-06-28T11:52:36+02:00</published>
       <updated>2014-06-28T11:52:36+02:00</updated>
       <id>https://roberts-notes.blog/2014/06/28/hosting-migration</id>
@@ -650,7 +666,9 @@ It was visible quite much especially on my Redmine instance and other RoR based 
       
       <title type="html">Goal for the next 2-3 months</title>
       
+      
       <link href="https://roberts-notes.blog/2014/06/28/goal-for-the-next-2-3-months/" rel="alternate" type="text/html" title="Goal for the next 2-3 months" />
+      
       <published>2014-06-28T11:21:42+02:00</published>
       <updated>2014-06-28T11:21:42+02:00</updated>
       <id>https://roberts-notes.blog/2014/06/28/goal-for-the-next-2-3-months</id>
@@ -692,7 +710,9 @@ Robert&lt;/p&gt;</content>
       
       <title type="html">CentOS6 “host” and “dig” commands are missing</title>
       
+      
       <link href="https://roberts-notes.blog/2014/05/20/centos6-host-command-is-missing/" rel="alternate" type="text/html" title="CentOS6 &quot;host&quot; and &quot;dig&quot; commands are missing" />
+      
       <published>2014-05-20T20:39:37+02:00</published>
       <updated>2014-05-20T20:39:37+02:00</updated>
       <id>https://roberts-notes.blog/2014/05/20/centos6-host-command-is-missing</id>
@@ -834,7 +854,9 @@ Other       : Provides-match: /usr/bin/dig&lt;/code&gt;&lt;/pre&gt;&lt;/figure&g
       
       <title type="html">Is TDD Dead ?</title>
       
+      
       <link href="https://roberts-notes.blog/2014/05/09/is-tdd-dead/" rel="alternate" type="text/html" title="Is TDD Dead ?" />
+      
       <published>2014-05-09T21:24:39+02:00</published>
       <updated>2014-05-09T21:24:39+02:00</updated>
       <id>https://roberts-notes.blog/2014/05/09/is-tdd-dead</id>
@@ -881,7 +903,9 @@ As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organize
       
       <title type="html">Keynote: Architecture the Lost Years by Robert Martin</title>
       
+      
       <link href="https://roberts-notes.blog/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin/" rel="alternate" type="text/html" title="Keynote: Architecture the Lost Years by Robert Martin" />
+      
       <published>2014-05-03T23:59:55+02:00</published>
       <updated>2014-05-03T23:59:55+02:00</updated>
       <id>https://roberts-notes.blog/2014/05/03/keynote-architecture-the-lost-years-by-robert-martin</id>
@@ -915,7 +939,9 @@ As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organize
       
       <title type="html">For a good start of a working day</title>
       
+      
       <link href="https://roberts-notes.blog/2014/05/03/for-a-good-start-of-a-working-day/" rel="alternate" type="text/html" title="For a good start of a working day" />
+      
       <published>2014-05-03T23:47:04+02:00</published>
       <updated>2014-05-03T23:47:04+02:00</updated>
       <id>https://roberts-notes.blog/2014/05/03/for-a-good-start-of-a-working-day</id>
@@ -957,7 +983,9 @@ As a result of that guys from &lt;strong&gt;ThoughtWorks&lt;/strong&gt; organize
       
       <title type="html">first post</title>
       
+      
       <link href="https://roberts-notes.blog/2014/05/03/first-post/" rel="alternate" type="text/html" title="first post" />
+      
       <published>2014-05-03T22:40:03+02:00</published>
       <updated>2014-05-03T22:40:03+02:00</updated>
       <id>https://roberts-notes.blog/2014/05/03/first-post</id>
